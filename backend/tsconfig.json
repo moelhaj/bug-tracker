@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "es2016",
+		"lib": ["esnext"],
+		"module": "commonjs",
+		"rootDir": "./src",
+		"typeRoots": ["./node_modules/@types", "./src/types"],
+		"sourceMap": true,
+		"outDir": "./dist",
+		"removeComments": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*"]
+}
