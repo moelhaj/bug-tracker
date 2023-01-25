@@ -64,18 +64,18 @@ export const NoContentSkeleton = ({ message }: { message: string }) => {
 	return (
 		<div className="flex w-36 flex-col items-center gap-3">
 			<div className="my-1 w-full rounded-md bg-gray-100 p-2 dark:bg-slate-900">
-				<div className="flex animate-pulse items-center space-x-2">
-					<div className="grid h-7 w-7 place-content-center rounded-md bg-white">
+				<div className="flex items-center space-x-2">
+					<div className="grid h-7 w-7 place-content-center rounded-md bg-white dark:bg-slate-800 dark:text-slate-500">
 						<TbFaceId size={30} />
 					</div>
 					<div className="flex-1 space-y-1 py-1">
-						<div className="h-1.5 rounded bg-gray-200"></div>
+						<div className="h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
 						<div className="space-y-1">
 							<div className="grid grid-cols-3 gap-1">
-								<div className="col-span-2 h-1.5 rounded bg-gray-200"></div>
-								<div className="col-span-1 h-1.5 rounded bg-gray-200"></div>
+								<div className="col-span-2 h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
+								<div className="col-span-1 h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
 							</div>
-							<div className="h-1.5 rounded bg-gray-200"></div>
+							<div className="h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
 						</div>
 					</div>
 				</div>
@@ -84,8 +84,6 @@ export const NoContentSkeleton = ({ message }: { message: string }) => {
 		</div>
 	);
 };
-
-// Dashboard Loading skeletons
 
 export const TableSkeleton = (props: any) => {
 	const rows = [...Array(props.rows).keys()];

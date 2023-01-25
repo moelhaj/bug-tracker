@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import classNames from "../../utilities/ClassNames";
 
 export default function Menu(props: any) {
 	const slideAnimation = {
 		enter: {
 			opacity: 1,
-			y: 0,
+			...(props.placement === "horizontal" && { x: 0 }),
+			...(props.placement === "vertical" && { y: 0 }),
 			transition: {
 				duration: 0.2,
 			},
@@ -14,7 +14,8 @@ export default function Menu(props: any) {
 		},
 		exit: {
 			opacity: 0,
-			y: -10,
+			...(props.placement === "horizontal" && { x: -10 }),
+			...(props.placement === "vertical" && { y: -10 }),
 			transition: {
 				duration: 0.1,
 			},

@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 type Notification = {
-	target: string;
 	title: string;
 	details: string;
 	userId: string;

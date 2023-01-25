@@ -3,25 +3,23 @@ import { persistReducer, persistStore } from "redux-persist";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import storage from "redux-persist/lib/storage";
 import { api } from "./api";
-import authReducer from "./slices/authSlice";
+import userReducer from "./slices/userSlice";
 import themeReducer from "./slices/themeSlice";
 
 export const store: any = configureStore({
 	reducer: {
 		[api.reducerPath]: api.reducer,
-		auth: persistReducer<RootState>(
+		user: persistReducer<RootState>(
 			{
-				key: "auth",
+				key: "user",
 				storage,
-				keyPrefix: "codex-",
 			},
-			authReducer
+			userReducer
 		),
 		theme: persistReducer<RootState>(
 			{
 				key: "theme",
 				storage,
-				keyPrefix: "codex-",
 			},
 			themeReducer
 		),

@@ -1,24 +1,18 @@
 import { Routes, Route } from "react-router-dom";
-// import Layout from "./components/layout/Main";
 import "./App.css";
 
-// import NewProject from "./pages/projects/NewProject";
-// import Project from "./pages/projects/Project";
-// import NewWorkItem from "./pages/workItems/NewWorkItem";
-// import Meetings from "./pages/meetings";
-// import { AuthGuard } from "./app/utilities";
-import Dashboard from "./pages/dashboard";
-import Login from "./pages/auth/Login";
 import MainLayout from "./components/layout/MainLayout";
+import Login from "./pages/auth/LoginPage";
 import Projects from "./pages/projects";
 import Project from "./pages/project";
-import Test from "./pages/test";
+import Assigned from "./pages/assigned";
 
 import RequireAuth from "./utilities/RequireAuth";
+import Prefetch from "./app/features/Prefetch";
 
 export const ROLES = {
-	Employee: "User",
-	Admin: "Admin",
+	Employee: "user",
+	Admin: "admin",
 };
 
 export default function App() {
@@ -26,38 +20,20 @@ export default function App() {
 		<Routes>
 			<Route path="login" element={<Login />} />
 			<Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-				<Route element={<MainLayout />}>
-					<Route path="/">
-						<Route index element={<Dashboard />} />
-					</Route>
-					<Route path="projects">
-						<Route index element={<Projects />} />
-						<Route path=":projectId" element={<Project />} />
-					</Route>
-					<Route path="test">
-						<Route index element={<Test />} />
+				<Route element={<Prefetch />}>
+					<Route element={<MainLayout />}>
+						<Route path="/">
+							<Route index element={<Projects />} />
+						</Route>
+						<Route path="/project">
+							<Route path=":projectId" element={<Project />} />
+						</Route>
+						<Route path="/assigned">
+							<Route index element={<Assigned />} />
+						</Route>
 					</Route>
 				</Route>
 			</Route>
-			{/* <Route path="login" element={<Login />} />
-			<Route element={<AuthGuard allowedRoles={[...Object.values(ROLES)]} />}>
-				<Route element={<Layout />}>
-					<Route path="/">
-						<Route index element={<Dashboard />} />
-					</Route>
-					<Route path="projects">
-						<Route index element={<Projects />} />
-						<Route path="new" element={<NewProject />} />
-						<Route path=":projectId" element={<Project />} />
-					</Route>
-					<Route path="work-items">
-						<Route path="new/:type/:projectId" element={<NewWorkItem />} />
-					</Route>
-					<Route path="meetings">
-						<Route index element={<Meetings />} />
-					</Route>
-				</Route>
-			</Route> */}
 		</Routes>
 	);
 }

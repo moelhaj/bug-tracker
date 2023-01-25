@@ -1,5 +1,5 @@
 import { api } from "../api";
-import { removeCredentials, setCredentials } from "../slices/authSlice";
+import { removeCredentials, setCredentials } from "../slices/userSlice";
 
 export const authApi = api.injectEndpoints({
 	endpoints: builder => ({

@@ -1,175 +1,157 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { TbX } from "react-icons/tb";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetProductBacklogItemsQuery } from "../../app/features/productBacklogItemApi";
+import { useAppSelector } from "../../app/store";
+import Pagination from "../../components/elements/Pagination";
 import {
 	ErrorSkeleton,
-	LoadingSkeleton,
 	NoContentSkeleton,
+	TableSkeleton,
 } from "../../components/elements/Skeletons";
-import Modal from "../../components/elements/Modal";
-import { useParams } from "react-router-dom";
-import { useGetProjectQuery } from "../../app/features/projectsApi";
-import New from "./New";
-import { useUpdateWorkItemMutation } from "../../app/features/workItemsApi";
-import Column from "../../components/dnd/Column";
-import Header from "./Header";
+import Debounce from "../../utilities/Debounce";
+import NewPbi from "./NewPbi";
+import NewWorkItem from "./NewWorkItem";
+import PbiRow from "./PbiRow";
 
 export default function Project() {
-	const modalRef = useRef<any>();
-	const [keyword, setKeyword] = useState("");
-	const [filter, setFilter] = useState("");
-	const [filterMenu, setFilterMenu] = useState(false);
+	const { user } = useAppSelector((state: any) => state.user);
 	const { projectId } = useParams();
-	const {
-		data: project,
-		isLoading,
-		isFetching,
-		isError,
-	} = useGetProjectQuery(projectId, {
-		refetchOnFocus: true,
-		refetchOnMountOrArgChange: true,
+	const [pbiId, setPbiId] = useState("");
+	const navigate = useNavigate();
+	const [newPbi, setNewPbi] = useState(false);
+	const [newWorkItem, setNewWorkItem] = useState(false);
+	const [page, setPage] = useState(0);
+	const [keyword, setKeyword] = useState("");
+	const [rowsPerPage] = useState(5);
+	const [debouncedKeyword, setDebouncedKeyword] = useState("");
+	const [filters, setFilters] = useState({
+		skip: Math.abs(page * rowsPerPage),
+		take: rowsPerPage,
+		title: keyword,
+		projectId,
 	});
-
-	const dragItem = useRef<any>();
-	const dragNode = useRef<any>();
-	const [dragOver, setDragOver] = useState("");
-	const [list, setList] = useState(project?.workItems);
-	const [updateWorkItem] = useUpdateWorkItemMutation();
-
-	const handleDragStart = (e: any, item: any) => {
-		dragItem.current = item;
-		dragNode.current = e.target;
-		dragNode.current.addEventListener("dragend", handleDragEnd);
-	};
-
-	const handleDragEnd = (e: any) => {
-		dragNode.current.removeEventListener("dragend", handleDragEnd);
-		dragItem.current = null;
-		dragNode.current = null;
-		setDragOver("");
-	};
-
-	const handleDragEnter = async (group: string) => {
-		if (dragItem.current.status !== group && group !== "") {
-			setList([
-				...list.filter((el: any) => el.id !== dragItem.current.id),
-				{ ...dragItem.current, status: group },
-			]);
-			await updateWorkItem({ ...dragItem.current, status: group });
+	const { data, isLoading, isFetching, isError, isSuccess } = useGetProductBacklogItemsQuery(
+		filters,
+		{
+			refetchOnFocus: true,
 		}
-	};
+	);
 
 	useEffect(() => {
-		modalRef?.current?.closeModal();
-		if (!isFetching) {
-			setList(project?.workItems);
-		}
+		setNewPbi(false);
+		setNewWorkItem(false);
 	}, [isFetching]);
 
-	const rows = useMemo(() => {
-		let workItems = list;
-		if (filter || keyword) {
-			workItems = list?.filter(
-				(item: any) =>
-					(item.title.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.status.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.assignee.name.toLowerCase().includes(keyword.toLowerCase())) &&
-					item.type.includes(filter)
-			);
-		}
-		return workItems;
-	}, [list, keyword, filter]);
-
-	const filterTypes = ["All", "PBI", "Task", "Bug"];
+	Debounce(() => setDebouncedKeyword(keyword), [keyword], 1000);
 
 	useEffect(() => {
-		setFilterMenu(false);
-	}, [filter]);
+		setFilters({ ...filters, skip: Math.abs(page * rowsPerPage), take: rowsPerPage });
+	}, [page]);
 
-	if (isError)
+	useEffect(() => {
+		setFilters({ ...filters, title: debouncedKeyword });
+	}, [debouncedKeyword]);
+
+	if (isError) {
 		return (
 			<div className="grid place-content-center py-20">
 				<ErrorSkeleton message="Error, try refresh the page" />
 			</div>
 		);
-
-	if (isLoading)
-		return (
-			<div className="grid place-content-center py-40">
-				<LoadingSkeleton />
-			</div>
-		);
+	}
 
 	return (
 		<>
-			<Header
-				filter={filter}
-				hideMenu={() => setFilterMenu(false)}
-				isFetching={isFetching}
-				keyword={keyword}
-				setKeyword={setKeyword}
-				filterMenu={filterMenu}
-				setFilterMenu={setFilterMenu}
-				openModal={() => modalRef.current.openModal()}
-				filterTypes={filterTypes}
-				setFilter={setFilter}
-				toggleFilterMenu={() => setFilterMenu((prev: any) => !prev)}
-			/>
-
-			{rows && rows.length < 1 && (
-				<div className="flex w-full items-center justify-center py-20">
-					<NoContentSkeleton message="No items found" />
+			<div className="p-3">
+				{/* Header */}
+				<div className="mt-5 flex items-center">
+					<div>
+						<button
+							onClick={() => navigate("/")}
+							className="btn btn-secondary px-2 py-1"
+						>
+							Back
+						</button>
+					</div>
+					<div className="flex-1" />
+					{user.roles.includes("admin") && (
+						<button
+							onClick={() => setNewPbi(true)}
+							className="btn btn-primary px-2 py-1"
+						>
+							New PBI
+						</button>
+					)}
 				</div>
+				{/* Table */}
+				<div className="x-scroll mt-7 overflow-hidden overflow-x-scroll rounded-md border border-gray-200 bg-white dark:border-none dark:bg-gray-800">
+					{/* Header */}
+					<div className="flex items-center justify-between bg-gray-100 p-2 dark:bg-slate-700">
+						<input
+							onChange={(e: any) => setKeyword(e.target.value)}
+							className="input"
+							type="text"
+							placeholder="Search"
+						/>
+					</div>
+					<table className="w-full border-collapse">
+						<thead className="text-sm">
+							<tr className="border-b border-b-gray-200 text-left text-base  font-bold dark:border-none">
+								<td></td>
+								<td>Title</td>
+								<td>State</td>
+								<td>Tag</td>
+								<td>Assigned To</td>
+								<td>Work Items</td>
+							</tr>
+						</thead>
+						{(isLoading || isFetching) && <TableSkeleton rows={5} columns={6} />}
+						{isSuccess && !isLoading && !isFetching && (
+							<tbody>
+								{data?.items && data?.items.length < 1 && (
+									<tr className="w-full">
+										<td className="w-full" colSpan={6}>
+											<div className="flex w-full items-center justify-center py-20">
+												<NoContentSkeleton message="No items found" />
+											</div>
+										</td>
+									</tr>
+								)}
+								{data?.items &&
+									data?.items.length > 0 &&
+									data?.items.map((item: any) => {
+										return (
+											<PbiRow
+												key={item.id}
+												item={item}
+												isFetching={isFetching}
+												isLoading={isLoading}
+												newWorkItem={() => setNewWorkItem(true)}
+												setPbiId={setPbiId}
+											/>
+										);
+									})}
+							</tbody>
+						)}
+					</table>
+				</div>
+				<div className="mt-5">
+					{!isFetching && !isLoading && data?.items && data?.items.length > 0 && (
+						<Pagination
+							page={page}
+							setPage={setPage}
+							count={data.count}
+							rowsPerPage={rowsPerPage}
+						/>
+					)}
+				</div>
+			</div>
+			{newPbi && (
+				<NewPbi projectId={projectId} open={newPbi} close={() => setNewPbi(false)} />
 			)}
-
-			{/* Content */}
-			{rows && rows.length > 0 && (
-				<div className="relative grid h-4/5 w-full grid-cols-1 gap-3 overflow-hidden p-3 lg:grid-cols-3">
-					{/* To Do */}
-					<Column
-						showUser={true}
-						title="To Do"
-						dragName="New"
-						dragOver={dragOver}
-						handleDragEnter={handleDragEnter}
-						handleDragStart={handleDragStart}
-						setDragOver={setDragOver}
-						rows={rows.filter((x: any) => x.status === "New")}
-					/>
-					{/* In Progress */}
-					<Column
-						showUser={true}
-						title="In Progress"
-						dragName="In Progress"
-						dragOver={dragOver}
-						handleDragEnter={handleDragEnter}
-						handleDragStart={handleDragStart}
-						setDragOver={setDragOver}
-						rows={rows.filter((x: any) => x.status === "In Progress")}
-					/>
-					{/* Done */}
-					<Column
-						showUser={true}
-						title="Done"
-						dragName="Done"
-						dragOver={dragOver}
-						handleDragEnter={handleDragEnter}
-						handleDragStart={handleDragStart}
-						setDragOver={setDragOver}
-						rows={rows.filter((x: any) => x.status === "Done")}
-					/>
-				</div>
+			{newWorkItem && (
+				<NewWorkItem pbiId={pbiId} open={newWorkItem} close={() => setNewWorkItem(false)} />
 			)}
-
-			<Modal ref={modalRef}>
-				<div className="svg-pattern flex items-center justify-between rounded-t-md py-6 px-3 text-white">
-					<h1 className="text-lg font-bold">New Work Item</h1>
-					<button onClick={() => modalRef.current.closeModal()}>
-						<TbX size={20} />
-					</button>
-				</div>
-
-				<New projectId={projectId} />
-			</Modal>
 		</>
 	);
 }

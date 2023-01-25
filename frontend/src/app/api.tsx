@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: "http://localhost:3500/api/v1",
+	baseUrl: "http://localhost:3500/api",
 	credentials: "include",
 	prepareHeaders: (headers, { getState }: { getState: any }) => {
-		const token = getState().auth.token;
+		const token = getState().user.token;
 		if (token) {
 			headers.set("authorization", `Bearer ${token}`);
 		}
@@ -14,6 +14,14 @@ const baseQuery = fetchBaseQuery({
 
 export const api = createApi({
 	baseQuery: baseQuery,
-	tagTypes: ["Dashboard", "Projects", "WorkItems", "Notifications", "Users"],
+	tagTypes: [
+		"Dashboard",
+		"Assigned",
+		"Projects",
+		"ProductBacklogItem",
+		"WorkItems",
+		"Notifications",
+		"Users",
+	],
 	endpoints: builder => ({}),
 });

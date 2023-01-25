@@ -7,36 +7,60 @@ type Props = PropsWithChildren<{
 	fullWidth?: boolean;
 	disabled?: boolean;
 	handleClick?: any;
+	type?: "button" | "submit" | "reset" | undefined;
+	large?: boolean;
 }>;
 
-export default function Button(props: Props) {
-	if (props.primary)
+export default function Button({
+	primary,
+	secondary,
+	disabled,
+	handleClick,
+	fullWidth,
+	type,
+	children,
+	large,
+}: Props) {
+	if (primary)
 		return (
 			<button
-				disabled={props.disabled}
-				onClick={props.handleClick}
-				className={classNames(props.fullWidth ? "w-full" : "", "btn btn-primary")}
+				disabled={disabled}
+				onClick={handleClick}
+				className={classNames(
+					fullWidth ? "w-full" : "",
+					large ? "p-2" : "px-2 py-1",
+					"btn btn-primary"
+				)}
+				type={type}
 			>
-				{props.children}
+				{children}
 			</button>
 		);
 
-	if (props.secondary)
+	if (secondary)
 		return (
 			<button
-				onClick={props.handleClick}
-				className={classNames(props.fullWidth ? "w-full" : "", "btn btn-secondary")}
+				onClick={handleClick}
+				className={classNames(
+					fullWidth ? "w-full" : "",
+					large ? "p-2" : "px-2 py-1",
+					"btn btn-secondary"
+				)}
 			>
-				{props.children}
+				{children}
 			</button>
 		);
 
 	return (
 		<button
-			onClick={props.handleClick}
-			className={classNames(props.fullWidth ? "w-full" : "", "btn btn-default")}
+			onClick={handleClick}
+			className={classNames(
+				fullWidth ? "w-full" : "",
+				large ? "p-2" : "px-2 py-1",
+				"btn btn-default"
+			)}
 		>
-			{props.children}
+			{children}
 		</button>
 	);
 }

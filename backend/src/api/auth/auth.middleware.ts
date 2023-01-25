@@ -41,5 +41,5 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const admin = async (req: Request, res: Response, next: NextFunction) => {
-	req.roles.includes("Admin") ? next() : res.status(403).send("Forbidden");
+	req.roles.includes("admin") ? next() : res.status(403).send("Forbidden");
 };

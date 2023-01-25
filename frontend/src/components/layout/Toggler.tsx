@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Toggler(props: any) {
 	return (
 		<div

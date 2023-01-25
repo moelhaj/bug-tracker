@@ -10,7 +10,7 @@ export default function Link(props: any) {
 					to={props.to}
 					className={classNames(
 						props.active ? "text-indigo-600 dark:text-white" : "",
-						"flex cursor-pointer items-center gap-4 rounded-md p-2 duration-300"
+						"flex cursor-pointer items-center justify-center gap-4 rounded-md p-2 duration-300"
 					)}
 				>
 					<div

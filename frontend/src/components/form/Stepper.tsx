@@ -1,7 +1,6 @@
 import { Fragment } from "react";
-import classNames from "../../utilities/ClassNames";
 import { TbCheck } from "react-icons/tb";
-import Button from "../elements/Button";
+import classNames from "../../utilities/ClassNames";
 
 export default function Stepper(props: any) {
 	return (
@@ -50,7 +49,7 @@ export default function Stepper(props: any) {
 								className={classNames(
 									props.step > current + 1
 										? "border-t-indigo-600"
-										: "border-t-gray-200",
+										: "border-t-gray-200 dark:border-t-gray-600",
 									"mb-5 flex-1 border-t border-dashed"
 								)}
 							></div>
@@ -66,20 +65,24 @@ export default function Stepper(props: any) {
 			<div className="mt-5">
 				<div className="flex w-full items-center justify-between">
 					{props.step !== 1 && (
-						<Button secondary handleClick={props.prevStep}>
+						<button className="btn btn-secondary px-2 py-1" onClick={props.prevStep}>
 							Pervious
-						</Button>
+						</button>
 					)}
 					<div className="flex-1"></div>
 					{props.step !== props.steps.length && (
-						<Button handleClick={props.nextStep} primary>
+						<button onClick={props.nextStep} className="btn btn-primary px-2 py-1">
 							Next
-						</Button>
+						</button>
 					)}
 					{props.step === props.steps.length && (
-						<Button handleClick={props.handleSubmit} disabled={props.loading} primary>
+						<button
+							onClick={props.handleSubmit}
+							disabled={props.loading}
+							className="btn btn-primary px-2 py-1"
+						>
 							{props.submitText}
-						</Button>
+						</button>
 					)}
 				</div>
 			</div>

@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 type WorkItem = {
 	title: string;
 	details: string;
-	status: any;
-	type: any;
+	state: any;
+	type: string;
 	assigneeId: string;
-	projectId: string;
+	productBacklogItemId: string;
 };
 
 export const create = async (workItem: WorkItem) => {

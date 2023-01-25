@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Routing
-app.use("/api/v1", routes);
+app.use("/api", routes);
 app.use("*", (req: Request, res: Response) => res.status(404).send("Not Found"));
 // app.get("*", async (req: Request, res: Response) => {
 // 	res.sendFile(path.join(__dirname, "build", "index.html"));

@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
-import { TbBug, TbCheckupList, TbTemplate } from "react-icons/tb";
 import classNames from "../../utilities/ClassNames";
 import { BugIcon, PbiIcon, TaskIcon } from "../elements/Icons";
+import dayjs from "dayjs";
 
 type Props = PropsWithChildren<{
 	item?: any;
@@ -22,12 +22,16 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 			)}
 		>
 			<div className="flex">
-				<div className="flex items-center gap-1 rounded-md">
-					{item?.type === "Bug" && <BugIcon size={15} />}
-					{item?.type === "Task" && <TaskIcon size={15} />}
-					{item?.type === "PBI" && <PbiIcon size={15} />}
-
-					<p>{item?.type}</p>
+				<div className="flex w-full items-center justify-between">
+					<div className="flex items-center gap-1">
+						{item?.type === "Bug" && <BugIcon size={15} />}
+						{item?.type === "Task" && <TaskIcon size={15} />}
+						{item?.type === "PBI" && <PbiIcon size={15} />}
+						<p>{item?.type}</p>
+					</div>
+					<div className="text-sm text-gray-600 dark:text-gray-300">
+						{dayjs(item?.create_at).format("DD/MM/YYYY")}
+					</div>
 				</div>
 			</div>
 
@@ -47,7 +51,9 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 				</div>
 			)}
 			<div className="mt-2 flex justify-between text-sm">
-				<p className="text-gray-600 dark:text-gray-200">State: {item?.status}</p>
+				<p className="text-gray-600 dark:text-gray-200">
+					State: {item?.state === "InProgress" ? "In Progress" : item?.state}
+				</p>
 			</div>
 		</div>
 	);

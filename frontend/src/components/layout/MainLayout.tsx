@@ -19,11 +19,11 @@ export default function MainLayout() {
 
 	return (
 		<>
-			<div className="mx-auto flex h-full w-full max-w-7xl text-base dark:bg-slate-800 md:h-screen">
+			<div className="mx-auto flex h-full  w-full max-w-7xl text-base dark:bg-slate-800 lg:h-screen">
 				<Sidebar />
 				<MobileMenu expand={expand} setExpand={setExpand} />
 				<div className="h-full w-full flex-1 p-0 lg:p-4">
-					<div className="h-full w-full rounded-md border bg-white dark:border-slate-900 dark:bg-slate-900">
+					<div className="h-full w-full rounded-md bg-white shadow-sm dark:border-slate-900 dark:bg-slate-900">
 						<Header expand={expand} setExpand={setExpand} />
 						<Outlet />
 					</div>

@@ -5,14 +5,8 @@ export const getProjectsCount = async () => {
 	return prisma.project.count();
 };
 
-export const getWorkItemsCount = async () => {
-	return prisma.workItem.count();
-};
-
 export const pbiCount = async () => {
-	return prisma.workItem.count({
-		where: { type: "PBI" },
-	});
+	return prisma.productBacklogItem.count();
 };
 
 export const bugCount = async () => {
@@ -26,14 +20,3 @@ export const taskCount = async () => {
 		where: { type: "Task" },
 	});
 };
-
-// assigned to me
-export const assignedToMe = async (userId: string) => {
-	return prisma.workItem.findMany({
-		where: { assigneeId: userId },
-		include: { assignee: true },
-		orderBy: [{ createdAt: "desc" }],
-	});
-};
-
-// work items status

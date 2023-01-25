@@ -1,47 +1,28 @@
-import Dropdown from "../elements/DropDown";
-import {
-	TbBell,
-	TbClipboardCheck,
-	TbChecks,
-	TbBug,
-	TbCheckupList,
-	TbTemplate,
-} from "react-icons/tb";
+import { TbBell, TbChecks, TbBug, TbCheckupList, TbTemplate } from "react-icons/tb";
 import { useAppSelector, useAppDispatch } from "../../app/store";
-// import { readAllNotification, getNotifications } from "../../app/features/notification";
-import { store } from "../../app/store";
-import { notificationsApi } from "../../app/features/notificationsApi";
-import {
-	useGetNotificationsQuery,
-	useReadNotificationsMutation,
-} from "../../app/features/notificationsApi";
-import { useEffect, useState } from "react";
+import { useReadNotificationsMutation } from "../../app/features/notificationsApi";
+import { useState } from "react";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import classNames from "../../utilities/ClassNames";
 import Menu from "../elements/Menu";
 import useNotification from "../../hooks/useNotification";
-import { NoContentSkeleton } from "../elements/Skeletons";
+import RelativeTime from "../../utilities/RelativeTime";
+import { setNewNotification } from "../../app/slices/userSlice";
 
 export default function Notifications() {
-	const { isNew, setIsNew, notifications, isLoading, isFetching, isSuccess, refetch } =
-		useNotification();
+	const dispatch = useAppDispatch();
+	const { newNotification } = useAppSelector((state: any) => state.user);
+	const { notifications, isLoading, isFetching, isSuccess, refetch } = useNotification();
 	const [showMenu, setShowMenu] = useState(false);
 
 	const [readNotifications] = useReadNotificationsMutation(undefined);
 
-	// useEffect(() => {
-	// 	refetch();
-	// 	console.log("chekc");
-	// }, [check, refetch]);
-
 	const notificationTime = (date: any) => {
 		const now = dayjs(new Date());
-		dayjs.extend(relativeTime);
 		if (now.diff(dayjs(date)) > 3600000) {
 			return dayjs(date).format("DD/MM/YYYY");
 		} else {
-			return dayjs(date).fromNow();
+			return RelativeTime(date);
 		}
 	};
 
@@ -51,9 +32,9 @@ export default function Notifications() {
 				refetch();
 				setShowMenu(prev => !prev);
 			}}
-			className="cursor-pointer rounded-full p-2 duration-300 hover:bg-gray-100 dark:hover:bg-slate-800"
+			className="cursor-pointer rounded-full p-2 duration-300 hover:bg-gray-100 dark:hover:bg-slate-700"
 		>
-			{isNew && (
+			{newNotification && (
 				<>
 					<div className="absolute top-3 right-3 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-600" />
 					<div className="absolute top-3 right-3 h-1.5 w-1.5 rounded-full bg-indigo-600" />
@@ -68,14 +49,15 @@ export default function Notifications() {
 			isOpen={showMenu}
 			styles="top-14 right-0"
 			button={notificationsButton}
+			placement="vertical"
 		>
 			{isLoading && isFetching && (
-				<div className="whitespace-nowrap py-2 px-4">Loading Notifications</div>
+				<div className="py-2 px-4 ">
+					<div className="whitespace-nowrap py-2 px-4">Loading Notifications...</div>
+				</div>
 			)}
 			{isSuccess && notifications.length < 1 && (
-				<div className="py-2 px-4 ">
-					<NoContentSkeleton message="No Notifications" />
-				</div>
+				<div className="whitespace-nowrap py-2 px-4">No new notifications</div>
 			)}
 			{isSuccess && notifications.length > 0 && (
 				<div className="y-scroll h-40 w-72 overflow-hidden overflow-y-scroll py-3 pl-3">
@@ -84,11 +66,11 @@ export default function Notifications() {
 						<div
 							onClick={async () => {
 								await readNotifications(undefined);
-								setIsNew(false);
+								dispatch(setNewNotification(false));
 								setShowMenu(false);
 							}}
 							className={classNames(
-								isNew
+								newNotification
 									? "cursor-pointer text-indigo-600 hover:bg-slate-100"
 									: "cursor-default text-slate-700 dark:text-gray-100",
 								"rounded-md p-1 duration-300"

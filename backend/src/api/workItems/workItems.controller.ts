@@ -15,7 +15,6 @@ export const getAll = async (req: Request, res: Response) => {
 export const create = async (req: Request, res: Response) => {
 	const workItem = await services.create(req.body);
 	notification.create({
-		target: workItem.projectId,
 		title: "New Assignment",
 		type: req.body.type,
 		details: `New ${workItem.type} has been assigned to you`,
@@ -26,5 +25,6 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
 	const workItem = await services.update(req.params.id, req.body);
+	console.log(workItem);
 	return res.status(200).send(workItem);
 };

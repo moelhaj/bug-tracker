@@ -1,11 +1,5 @@
 import { api } from "../api";
 
-type Filters = {
-	take: number;
-	skip: number;
-	title: string;
-};
-
 type Project = {
 	id: number;
 	title: string;
@@ -17,19 +11,16 @@ type Project = {
 	createdAt: Date;
 };
 
-type ProjectsResponse = {
-	count: number;
-	projects: Project[];
-};
+type ProjectsResponse = Project[];
 
 export const projectsApi = api.injectEndpoints({
 	endpoints: builder => ({
-		getProjects: builder.query<ProjectsResponse, Filters>({
-			query: (filters: any) => `/projects?filters=${JSON.stringify(filters)}`,
+		getProjects: builder.query<ProjectsResponse, void>({
+			query: () => "/projects",
 			providesTags: result =>
 				result
 					? [
-							...result.projects.map(({ id }) => ({ type: "Projects" as const, id })),
+							...result.map(({ id }) => ({ type: "Projects" as const, id })),
 							{ type: "Projects", id: "LIST" },
 					  ]
 					: [{ type: "Projects", id: "LIST" }],
@@ -67,6 +58,3 @@ export const {
 	useAddProjectMutation,
 	useUpdateProjectMutation,
 } = projectsApi;
-
-// addProject: builder.mutation<{}, Omit<Project, 'id'>>({
-// // get project providesTags: (returnValue, args) => [{ type: "Projects", id: args }],

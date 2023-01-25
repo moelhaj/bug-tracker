@@ -1,19 +1,14 @@
-import Toggler from "./Toggler";
 import Menu from "../elements/Menu";
-import { useLogoutMutation } from "../../app/features/authApi";
 import { useAppSelector, useAppDispatch } from "../../app/store";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Notifications from "./Notifications";
 import classNames from "../../utilities/ClassNames";
 import { setDarkMode } from "../../app/slices/themeSlice";
+import { removeCredentials } from "../../app/slices/userSlice";
 
 export default function User() {
 	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
-	const { user } = useAppSelector((state: any) => state.auth);
+	const { user } = useAppSelector((state: any) => state.user);
 	const { darkMode } = useAppSelector((state: any) => state.theme);
-	const [logout] = useLogoutMutation();
 	const [showMenu, setShowMenu] = useState(false);
 
 	useEffect(() => {
@@ -25,7 +20,7 @@ export default function User() {
 	const userButton = (
 		<div
 			onClick={() => setShowMenu(prev => !prev)}
-			className="flex cursor-pointer items-center gap-2 rounded-md duration-300 hover:bg-gray-100 dark:hover:bg-slate-800 md:p-2"
+			className="grid cursor-pointer place-content-center rounded-full duration-300 hover:bg-gray-100 dark:hover:bg-slate-700 md:p-2"
 		>
 			<img
 				className="h-7 w-7 rounded-full object-contain"
@@ -33,14 +28,6 @@ export default function User() {
 				crossOrigin="anonymous"
 				alt="avatar"
 			/>
-			<div className="hidden flex-col md:flex">
-				<span className="text-sm leading-3 text-gray-700 dark:text-gray-100">
-					{user.name}
-				</span>
-				<span className="text-xs leading-3 text-gray-400 dark:text-gray-200">
-					{user?.title}
-				</span>
-			</div>
 		</div>
 	);
 
@@ -48,10 +35,11 @@ export default function User() {
 		<Menu
 			hide={() => setShowMenu(false)}
 			isOpen={showMenu}
-			styles="top-14 right-0"
+			styles="bottom-0 left-12"
 			button={userButton}
+			placement="horizontal"
 		>
-			<div className="flex w-40 flex-col">
+			<div className="left- flex w-40 flex-col">
 				<div className="px-1 py-1">
 					<div className="group flex w-full cursor-default items-center justify-between rounded-md px-2 py-2">
 						<span>Dark Mode</span>
@@ -78,8 +66,8 @@ export default function User() {
 				</div>
 				<div className="px-1 py-1">
 					<div
-						className="cursor-pointer rounded-md px-2 py-2 duration-300 hover:bg-gray-100 dark:hover:bg-slate-700"
-						onClick={logout}
+						className="cursor-pointer rounded-md px-2 py-2 duration-300 hover:bg-gray-100 dark:hover:bg-slate-900"
+						onClick={() => dispatch(removeCredentials())}
 					>
 						Logout
 					</div>

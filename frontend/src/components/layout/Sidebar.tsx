@@ -1,16 +1,17 @@
 import { useLocation } from "react-router-dom";
 import Link from "./Link";
-import { TbLayoutBoard, TbCalendarMinus, TbServer2, TbListDetails } from "react-icons/tb";
+import { TbLayoutBoard, TbClipboardCheck } from "react-icons/tb";
 import classNames from "../../utilities/ClassNames";
+import User from "./User";
 
 export default function Sidebar() {
 	const location = useLocation();
 	const { pathname } = location;
 
-	const homeRef = !pathname.includes("/projects");
+	const homeRef = !pathname.includes("/assigned");
 	return (
-		<div className="my-4 ml-4 hidden flex-col gap-10 rounded-md border bg-white p-3 duration-300 dark:border-slate-900 dark:bg-slate-900 lg:flex">
-			<div className="flex flex-col gap-5">
+		<div className="my-4 ml-4 hidden flex-col gap-10 rounded-md bg-white p-2 duration-300 dark:border-slate-900 dark:bg-slate-900 lg:flex">
+			<div className="flex h-full flex-col gap-5">
 				<Link
 					small
 					to="/"
@@ -21,14 +22,14 @@ export default function Sidebar() {
 							size={23}
 						/>
 					}
-					text="Dashboard"
+					text="Projects"
 				/>
 				<Link
 					small
-					to="/projects"
-					active={pathname.includes("projects") || pathname.includes("work-items")}
+					to="/assigned"
+					active={pathname.includes("assigned")}
 					icon={
-						<TbServer2
+						<TbClipboardCheck
 							size={23}
 							className={classNames(
 								pathname.includes("projects") || pathname.includes("work-items")
@@ -37,8 +38,10 @@ export default function Sidebar() {
 							)}
 						/>
 					}
-					text="Projects"
+					text="My Tasks"
 				/>
+				<div className="flex-1"></div>
+				<User />
 			</div>
 		</div>
 	);

@@ -1,11 +1,13 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { useAppSelector } from "../app/store";
+import { useAppSelector, useAppDispatch } from "../app/store";
 import { useGetNotificationsQuery } from "../app/features/notificationsApi";
+import { setNewNotification } from "../app/slices/userSlice";
 
 export const NotificationContext = createContext<any | null>(null);
 
 export const NotificationProvider = ({ children }: { children: any }) => {
+	const dispatch = useAppDispatch();
 	const socket = io("http://localhost:3500");
 	const {
 		data: notifications,
@@ -15,9 +17,8 @@ export const NotificationProvider = ({ children }: { children: any }) => {
 		refetch,
 	} = useGetNotificationsQuery(undefined);
 	const [snack, setSnack] = useState(false);
-	const [isNew, setIsNew] = useState(false);
 	const [check, setCheck] = useState(false);
-	const { user } = useAppSelector((state: any) => state.auth);
+	const { user } = useAppSelector((state: any) => state.user);
 
 	const init = (id: string) => socket?.emit("init", id);
 	const notify = (id: string) => socket?.emit("notify", id);
@@ -30,37 +31,16 @@ export const NotificationProvider = ({ children }: { children: any }) => {
 		user ? socket?.emit("init", user.id) : socket?.emit("logout");
 	}, [socket]);
 
-	// useEffect(() => {
-	// 	const timer = setTimeout(() => {
-	// 		socket?.emit("init", user?.id);
-	// 	}, 120000);
-	// 	return () => clearTimeout(timer);
-	// }, []);
-
 	socket?.on("check", async () => {
-		setIsNew(true);
+		dispatch(setNewNotification(true));
 		setSnack(true);
 	});
-
-	// useEffect(() => {
-	// 	console.log(notifications?.length);
-	// }, [isFetching]);
-
-	// useEffect(() => {
-	// if (notifications?.filter((n: any) => !n.seen).length > 0) {
-	// 	setIsNew(true);
-	// } else {
-	// 	setIsNew(false);
-	// }
-	// 	console.log(notifications?.length);
-	// }, [isFetching, notifications]);
 
 	return (
 		<NotificationContext.Provider
 			value={{
 				socket,
 				snack,
-				isNew,
 				notifications,
 				isLoading,
 				isFetching,
@@ -71,7 +51,6 @@ export const NotificationProvider = ({ children }: { children: any }) => {
 				init,
 				notify,
 				refetch,
-				setIsNew,
 			}}
 		>
 			{children}

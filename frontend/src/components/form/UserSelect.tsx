@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import classNames from "../../utilities/ClassNames";
-import TextInput from "./TextInput";
-import { TbX, TbChevronDown, TbChevronUp } from "react-icons/tb";
-import { motion } from "framer-motion";
+import { TbChevronDown, TbChevronUp } from "react-icons/tb";
+import DropDown from "../elements/DropDown";
 
 export default function UserSelect(props: any) {
 	const [keyword, setKeyword] = useState("");
@@ -21,55 +20,19 @@ export default function UserSelect(props: any) {
 		}
 	}, [keyword]);
 
-	const slideAnimation = {
-		enter: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.3,
-			},
-			display: "flex",
-		},
-		exit: {
-			opacity: 0,
-			y: -10,
-			transition: {
-				duration: 0.1,
-			},
-			transitionEnd: {
-				display: "none",
-			},
-		},
-	};
-
 	return (
-		<div className="relative z-10 w-full">
-			<div
-				className={classNames(
-					showMenu
-						? "-top-5 text-indigo-600 dark:text-indigo-100"
-						: props.user?.assigneeName !== ""
-						? "-top-5 text-gray-500 dark:text-indigo-100"
-						: "top-2.5 text-gray-500 dark:text-gray-100",
-					"absolute z-20 pl-2 text-sm duration-300"
-				)}
-			>
-				{props.label}
-			</div>
-			<div
-				onClick={() => setShowMenu(prev => !prev)}
-				className={classNames(
-					showMenu ? "border-indigo-600" : "border-gray-300 dark:border-none",
-					"relative z-10 flex h-9 w-full cursor-pointer items-center gap-2 overflow-hidden overflow-x-scroll rounded-md border bg-white pr-4 dark:bg-slate-800"
-				)}
-			>
-				<div className="absolute right-1 top-1.5 z-10 rounded-md p-1">
-					{!showMenu && <TbChevronDown />}
-					{showMenu && <TbChevronUp />}
-				</div>
-				{props.user?.assigneeName !== "" && (
-					<div className="pl-2">{props.user?.assigneeName}</div>
-				)}
+		<div className="relative w-full">
+			<input
+				type="text"
+				className="input w-full cursor-pointer"
+				placeholder={props.label}
+				value={props.user?.assigneeName}
+				readOnly
+				onFocus={() => setShowMenu(true)}
+			/>
+			<div className="absolute right-2 top-0.5 pt-1.5 text-gray-400">
+				{!showMenu && <TbChevronDown />}
+				{showMenu && <TbChevronUp />}
 			</div>
 			{showMenu && (
 				<div
@@ -77,17 +40,15 @@ export default function UserSelect(props: any) {
 					onClick={() => setShowMenu(false)}
 				></div>
 			)}
-			<motion.div
-				initial="exit"
-				animate={showMenu ? "enter" : "exit"}
-				variants={slideAnimation}
-				className="y-scroll absolute top-10 z-20 flex h-40 w-full flex-col gap-3 overflow-hidden overflow-y-scroll rounded-md border border-gray-300 bg-white px-1 pt-3 pl-3 pb-3 shadow-sm dark:border-slate-700 dark:bg-slate-900"
+			<DropDown
+				trigger={showMenu}
+				styles="bg-white dark:bg-slate-900 dark:border-slate-700 px-1 absolute z-20 top-10 flex flex-col gap-3 w-full pt-3 pl-3 pb-3 rounded-md border border-gray-300"
 			>
 				<div>
 					<input
 						type="text"
 						value={keyword}
-						className="input"
+						className="input w-full"
 						onChange={(e: any) => setKeyword(e.target.value)}
 						placeholder="Search"
 					/>
@@ -121,7 +82,7 @@ export default function UserSelect(props: any) {
 						</div>
 					))}
 				</div>
-			</motion.div>
+			</DropDown>
 		</div>
 	);
 }

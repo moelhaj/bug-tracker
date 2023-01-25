@@ -10,7 +10,7 @@ export const workItemsApi = api.injectEndpoints({
 					...item,
 				},
 			}),
-			invalidatesTags: ["WorkItems", "Projects", "Notifications"],
+			invalidatesTags: ["WorkItems", "ProductBacklogItem"],
 		}),
 		updateWorkItem: builder.mutation({
 			query: item => ({
@@ -20,7 +20,7 @@ export const workItemsApi = api.injectEndpoints({
 					...item,
 				},
 			}),
-			invalidatesTags: ["WorkItems", "Projects"],
+			invalidatesTags: ["WorkItems", "ProductBacklogItem"],
 		}),
 	}),
 });

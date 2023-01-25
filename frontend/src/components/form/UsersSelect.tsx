@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import classNames from "../../utilities/ClassNames";
-import TextInput from "./TextInput";
-import { TbX, TbChevronDown, TbChevronUp } from "react-icons/tb";
-import { motion } from "framer-motion";
+import { TbX } from "react-icons/tb";
 
 export default function UserSelect(props: any) {
 	const [keyword, setKeyword] = useState("");
 	const [filteredUsers, setFilteredUsers] = useState(props.users);
-	const [showMenu, setShowMenu] = useState(false);
 
 	useEffect(() => {
 		if (keyword !== "") {
@@ -29,51 +26,27 @@ export default function UserSelect(props: any) {
 		}
 	};
 
-	const removeUser = (id: string) => {
-		props.setSelectedUsers(props.selectedUsers.filter((x: any) => x.id !== id));
-	};
-
 	const isSelected = (id: string) =>
 		props.selectedUsers.filter((x: any) => x.id === id).length > 0;
-
-	const slideAnimation = {
-		enter: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.3,
-			},
-			display: "flex",
-		},
-		exit: {
-			opacity: 0,
-			y: -10,
-			transition: {
-				duration: 0.1,
-			},
-			transitionEnd: {
-				display: "none",
-			},
-		},
-	};
 
 	return (
 		<div>
 			<div className="relative">
-				<TextInput
+				<input
 					type="text"
 					value={keyword}
-					handleChange={(e: any) => setKeyword(e.target.value)}
-					label="Search"
+					onChange={(e: any) => setKeyword(e.target.value)}
+					placeholder="Search"
+					className="input w-full"
 				/>
 				<div
 					onClick={() => setKeyword("")}
-					className="absolute left-36 top-3.5 ml-2 grid h-4 w-4 cursor-pointer place-content-center rounded-full bg-gray-100 text-gray-500 duration-300 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-100"
+					className="absolute right-2 top-1.5 grid cursor-pointer hover:text-indigo-600 dark:text-white"
 				>
-					<TbX size={12} />
+					<TbX size={18} />
 				</div>
 			</div>
-			<div className="y-scroll mt-5 h-48 overflow-hidden overflow-y-scroll rounded-md border border-gray-300 p-3 dark:border-slate-900">
+			<div className="y-scroll mt-5 h-48 overflow-hidden overflow-y-scroll rounded-md border border-gray-300 pl-3 pt-3 pb-3 dark:border-slate-900">
 				<div className="grid grid-cols-1 gap-2 md:grid-cols-2">
 					{filteredUsers.map((user: any) => (
 						<div
