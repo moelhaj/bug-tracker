@@ -24,7 +24,12 @@ export const findById = async (id: string) => {
 
 export const find = async () => {
 	return prisma.project.findMany({
-		include: { users: true, productBacklogItems: true },
+		include: {
+			users: true,
+			_count: {
+				select: { productBacklogItems: true },
+			},
+		},
 		orderBy: [{ createdAt: "desc" }],
 	});
 };

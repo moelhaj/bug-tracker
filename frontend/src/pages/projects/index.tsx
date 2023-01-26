@@ -6,7 +6,7 @@ import {
 	LoadingSkeleton,
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
-import { TbBug, TbCheckupList, TbReportAnalytics, TbTemplate } from "react-icons/tb";
+import { TbBug, TbCheckupList, TbReportAnalytics, TbSquarePlus, TbTemplate } from "react-icons/tb";
 import NewProject from "./NewProject";
 import { useNavigate } from "react-router-dom";
 import RelativeTime from "../../utilities/RelativeTime";
@@ -33,6 +33,7 @@ export default function Dashboard() {
 	const [newProject, setNewProject] = useState(false);
 
 	useEffect(() => {
+		console.log(projects);
 		setNewProject(false);
 	}, [isFetching]);
 
@@ -76,18 +77,7 @@ export default function Dashboard() {
 					</div>
 				)}
 				{/* Header */}
-				<div className="mt-5 flex items-center">
-					<h1 className="text-xl font-bold">Projects</h1>
-					<div className="flex-1" />
-					{user.roles.includes("admin") && (
-						<button
-							onClick={() => setNewProject(true)}
-							className="btn btn-primary px-2 py-1"
-						>
-							New Project
-						</button>
-					)}
-				</div>
+				<h1 className="mt-10 pl-1 text-lg font-bold">Projects</h1>
 
 				{/* Empty */}
 				{projects && projects?.length < 1 && (
@@ -97,31 +87,61 @@ export default function Dashboard() {
 				)}
 
 				{projects && projects?.length > 0 && (
-					<div className="dashboard-height large-y-scroll mt-3 grid grid-cols-1 gap-3 overflow-hidden overflow-y-scroll rounded-md pt-3 pb-3 dark:bg-slate-800 md:grid-cols-2 lg:grid-cols-3">
-						{projects.map((project: any) => (
-							<div
-								key={project.id}
-								onClick={() => navigate(`/project/${project.id}`)}
-								className="flex cursor-pointer flex-col rounded-md border bg-white p-3 shadow-sm duration-300 hover:bg-gray-50 dark:border-none dark:bg-slate-900"
-							>
-								<h1 className="text-lg font-bold">{project.title}</h1>
-								<p className="whitespace-pre-wrap text-gray-600 dark:text-gray-300">
-									{TextOverflow(project.details, 7)}...
-								</p>
-								<div className="x-scroll my-3 flex items-center gap-3 overflow-hidden overflow-x-scroll">
-									{project.users.map((user: any) => (
-										<img
-											key={user.id}
-											className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-slate-900"
-											crossOrigin="anonymous"
-											src={`http://localhost:3500/${user?.id}.png`}
-											alt={"user"}
-										/>
-									))}
-								</div>
-								<p className="text-sm">Due {RelativeTime(project.endDate)}</p>
-							</div>
-						))}
+					<div className="dashboard-height large-y-scroll mt-3 overflow-hidden overflow-y-scroll rounded-md pt-1">
+						<div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+							{[...projects, { last: true }].map((project: any) => {
+								// console.log(project.last);
+								// return <div>test</div>;
+								if (project.last && user.roles.includes("admin")) {
+									return (
+										<div
+											onClick={() => setNewProject(true)}
+											key="last-project"
+											className="flex cursor-pointer flex-col items-center justify-center rounded-md border bg-white p-3 text-gray-300 shadow-sm duration-300 hover:bg-gray-50 hover:text-gray-700 dark:border-none dark:bg-slate-800 dark:text-gray-600 dark:hover:text-gray-300"
+										>
+											<TbSquarePlus size={50} />
+											New Project
+										</div>
+									);
+								} else {
+									return (
+										<div
+											key={project.id}
+											onClick={() => navigate(`/project/${project.id}`)}
+											className="flex cursor-pointer flex-col rounded-md border bg-white p-3 shadow-sm duration-300 hover:bg-gray-50 dark:border-none dark:bg-slate-800"
+										>
+											<h1 className="text-lg font-bold">{project.title}</h1>
+											<p className="whitespace-pre-wrap text-gray-600 dark:text-gray-300">
+												{TextOverflow(project.details, 7)}...
+											</p>
+											<div className="flex-1" />
+											<div className="x-scroll my-3 flex items-center gap-3 overflow-hidden overflow-x-scroll">
+												{project.users.map((user: any) => (
+													<img
+														key={user.id}
+														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-slate-900"
+														crossOrigin="anonymous"
+														src={`http://localhost:3500/${user?.id}.png`}
+														alt={"user"}
+													/>
+												))}
+											</div>
+											<div className="flex justify-between">
+												<div className="flex items-center gap-2 text-sm">
+													<div className="text-indigo-600 dark:text-indigo-300">
+														<TbTemplate size={15} />
+													</div>
+													<p>{project?._count.productBacklogItems}</p>
+												</div>
+												<p className="text-sm">
+													Due {RelativeTime(project.endDate)}
+												</p>
+											</div>
+										</div>
+									);
+								}
+							})}
+						</div>
 					</div>
 				)}
 			</div>

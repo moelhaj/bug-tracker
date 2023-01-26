@@ -7,8 +7,7 @@
 		"prebuild": "rm -rf dist",
 		"build": "tsc",
 		"dev": "ts-node-dev --respawn --transpile-only src",
-		"postinstall": "tsc",
-		"deploy": "git add . && git commit -m Heroku && git push heroku master"
+		"start": "node ./dist/application.js"
 	},
 	"engines": {
 		"node": "16.18.0"

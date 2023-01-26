@@ -98,7 +98,7 @@ export const TableSkeleton = (props: any) => {
 							className="cursor-default p-3"
 						>
 							<div
-								style={{ height: "24.5px" }}
+								style={{ height: "28px" }}
 								className="w-full animate-pulse rounded bg-gray-200 dark:bg-slate-900"
 							></div>
 						</td>
