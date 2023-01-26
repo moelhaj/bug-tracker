@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import App from "./App";
 
 import { Provider } from "react-redux";
@@ -13,9 +13,9 @@ root.render(
 	<Provider store={store}>
 		<PersistGate persistor={persister}>
 			<ContextProvider>
-				<BrowserRouter>
+				<HashRouter>
 					<App />
-				</BrowserRouter>
+				</HashRouter>
 			</ContextProvider>
 		</PersistGate>
 	</Provider>
