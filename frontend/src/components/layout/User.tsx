@@ -24,7 +24,7 @@ export default function User() {
 		>
 			<img
 				className="h-7 w-7 rounded-full object-contain"
-				src={`https://mo-backend-issue-tracker.onrender.com//${user?.id}.png`}
+				src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
 				crossOrigin="anonymous"
 				alt="avatar"
 			/>
