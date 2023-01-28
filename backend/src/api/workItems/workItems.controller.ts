@@ -8,8 +8,16 @@ export const get = async (req: Request, res: Response) => {
 };
 
 export const getAll = async (req: Request, res: Response) => {
-	const workItems = await services.find();
-	return res.status(200).send(workItems);
+	const queries: any = {};
+	const rawFilters: any = req.query.filters;
+	const filters = JSON.parse(rawFilters);
+	const { title, skip, take, projectId } = filters;
+
+	title !== "" ? (queries["title"] = { contains: title, mode: "insensitive" }) : null;
+	projectId !== "" ? (queries["projectId"] = projectId) : null;
+
+	const [count, workItems] = await services.find(skip, take, queries);
+	return res.status(200).send({ count, workItems });
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -25,6 +33,5 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
 	const workItem = await services.update(req.params.id, req.body);
-	console.log(workItem);
 	return res.status(200).send(workItem);
 };

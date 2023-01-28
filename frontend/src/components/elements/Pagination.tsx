@@ -7,9 +7,10 @@ type Props = {
 	count: number;
 	rowsPerPage: number;
 	setPage: any;
+	disabled: boolean;
 };
 
-const Pagination = ({ count, page, setPage, rowsPerPage }: Props) => {
+const Pagination = ({ count, page, setPage, rowsPerPage, disabled }: Props) => {
 	const [one, setOne] = useState(1);
 	const [of, setOf] = useState(rowsPerPage);
 	const pages = [...Array(Math.ceil(count / rowsPerPage)).keys()];
@@ -25,10 +26,10 @@ const Pagination = ({ count, page, setPage, rowsPerPage }: Props) => {
 		} else {
 			setOne(page * rowsPerPage + 1);
 		}
-	}, [page]);
+	}, [page, count]);
 
-	const handlePrev = () => (page > 0 ? setPage(page - 1) : null);
-	const handleNext = () => (page < pages.length - 1 ? setPage(page + 1) : null);
+	const handlePrev = () => (page > 0 && disabled ? setPage(page - 1) : null);
+	const handleNext = () => (page < pages.length - 1 && disabled ? setPage(page + 1) : null);
 
 	return (
 		<div className="flex items-center justify-center md:justify-end">

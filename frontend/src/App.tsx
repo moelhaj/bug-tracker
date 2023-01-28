@@ -4,7 +4,7 @@ import "./App.css";
 import MainLayout from "./components/layout/MainLayout";
 import Login from "./pages/auth/LoginPage";
 import Projects from "./pages/projects";
-import Project from "./pages/project";
+import WorkItems from "./pages/workItems";
 import Assigned from "./pages/assigned";
 
 import RequireAuth from "./utilities/RequireAuth";
@@ -26,7 +26,7 @@ export default function App() {
 							<Route index element={<Projects />} />
 						</Route>
 						<Route path="/project">
-							<Route path=":projectId" element={<Project />} />
+							<Route path=":projectId" element={<WorkItems />} />
 						</Route>
 						<Route path="/assigned">
 							<Route index element={<Assigned />} />

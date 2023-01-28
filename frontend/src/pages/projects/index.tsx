@@ -6,7 +6,7 @@ import {
 	LoadingSkeleton,
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
-import { TbBug, TbCheckupList, TbReportAnalytics, TbSquarePlus, TbTemplate } from "react-icons/tb";
+import { TbBug, TbCheckupList, TbReportAnalytics, TbPlus, TbTemplate } from "react-icons/tb";
 import NewProject from "./NewProject";
 import { useNavigate } from "react-router-dom";
 import RelativeTime from "../../utilities/RelativeTime";
@@ -33,7 +33,6 @@ export default function Dashboard() {
 	const [newProject, setNewProject] = useState(false);
 
 	useEffect(() => {
-		console.log(projects);
 		setNewProject(false);
 	}, [isFetching]);
 
@@ -57,16 +56,11 @@ export default function Dashboard() {
 		<>
 			<div className="p-3">
 				{metrics && (
-					<div className="mt-5 grid grid-cols-2 gap-5 md:grid-cols-4">
+					<div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
 						<Metric
 							icon={<TbReportAnalytics size={20} />}
 							name="Projects"
 							amount={metrics?.projectsCount}
-						/>
-						<Metric
-							icon={<TbTemplate size={20} />}
-							name="PBI"
-							amount={metrics?.pbiCount}
 						/>
 						<Metric
 							icon={<TbCheckupList size={20} />}
@@ -92,17 +86,20 @@ export default function Dashboard() {
 							{[...projects, { last: true }].map((project: any) => {
 								// console.log(project.last);
 								// return <div>test</div>;
-								if (project.last && user.roles.includes("admin")) {
-									return (
-										<div
-											onClick={() => setNewProject(true)}
-											key="last-project"
-											className="flex cursor-pointer flex-col items-center justify-center rounded-md border bg-white p-3 text-gray-300 shadow-sm duration-300 hover:bg-gray-50 hover:text-gray-700 dark:border-none dark:bg-slate-800 dark:text-gray-600 dark:hover:text-gray-300"
-										>
-											<TbSquarePlus size={50} />
-											New Project
-										</div>
-									);
+								if (project.last) {
+									if (user.roles.includes("admin")) {
+										return (
+											<div
+												onClick={() => setNewProject(true)}
+												key="last-project"
+												className="project-card-height flex cursor-pointer flex-col items-center justify-center rounded-md border bg-white p-3 text-gray-300 shadow-sm duration-300 hover:bg-gray-50 hover:text-gray-700 dark:border-none dark:bg-slate-800 dark:text-gray-600 dark:hover:text-gray-300"
+											>
+												<TbPlus size={50} />
+											</div>
+										);
+									} else {
+										return null;
+									}
 								} else {
 									return (
 										<div
@@ -121,7 +118,7 @@ export default function Dashboard() {
 														key={user.id}
 														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-slate-900"
 														crossOrigin="anonymous"
-														src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+														src={`http://localhost:3500/${user?.id}.png`}
 														alt={"user"}
 													/>
 												))}
@@ -131,7 +128,7 @@ export default function Dashboard() {
 													<div className="text-indigo-600 dark:text-indigo-300">
 														<TbTemplate size={15} />
 													</div>
-													<p>{project?._count.productBacklogItems}</p>
+													<p>{project?._count.workItems}</p>
 												</div>
 												<p className="text-sm">
 													Due {RelativeTime(project.endDate)}

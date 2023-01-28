@@ -20,9 +20,13 @@ body {
 	height: 100%;
 }
 
+.project-card-height {
+	height: 135px;
+}
+
 @media only screen and (min-width: 1024px) {
-	.dashboard-height {
-		height: 425px;
+	.project-card-height {
+		height: 100%;
 	}
 }
 

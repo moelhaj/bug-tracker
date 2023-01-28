@@ -5,10 +5,6 @@ export const getProjectsCount = async () => {
 	return prisma.project.count();
 };
 
-export const pbiCount = async () => {
-	return prisma.productBacklogItem.count();
-};
-
 export const bugCount = async () => {
 	return prisma.workItem.count({
 		where: { type: "Bug" },

@@ -13,14 +13,14 @@ type WorkItem = {
 	type: string;
 	assigneeId: string;
 	assigneeName: string;
-	productBacklogItemId: string;
+	projectId: string;
 };
 
 const types = ["Task", "Bug"];
 
-export default function NewWorkItem(props: any) {
+export default function New(props: any) {
 	const { notify } = useNotification();
-	const { data: users, isLoading: loadingUsers } = useGetUsersQuery("");
+	const { data: users, isLoading: loadingUsers } = useGetUsersQuery(undefined);
 	const [addWorkItem, { isLoading }] = useAddWorkItemMutation();
 	const [error, setError] = useState<any>(null);
 	const [workItem, setWorkItem] = useState<WorkItem>({
@@ -29,7 +29,7 @@ export default function NewWorkItem(props: any) {
 		type: "",
 		assigneeId: "",
 		assigneeName: "",
-		productBacklogItemId: props.pbiId,
+		projectId: props.projectId,
 	});
 
 	const handleChange = (e: { target: { id: any; value: any } }) => {

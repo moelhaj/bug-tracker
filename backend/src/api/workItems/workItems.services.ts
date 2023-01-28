@@ -7,7 +7,7 @@ type WorkItem = {
 	state: any;
 	type: string;
 	assigneeId: string;
-	productBacklogItemId: string;
+	projectId: string;
 };
 
 export const create = async (workItem: WorkItem) => {
@@ -19,13 +19,23 @@ export const create = async (workItem: WorkItem) => {
 export const findById = async (id: string) => {
 	return prisma.workItem.findUnique({
 		where: { id },
+		include: { assignee: true },
 	});
 };
 
-export const find = async () => {
-	return prisma.workItem.findMany({
-		orderBy: [{ createdAt: "desc" }],
-	});
+export const find = async (skip: number, take: number, queries: any) => {
+	return await prisma.$transaction([
+		prisma.workItem.count({
+			where: queries,
+		}),
+		prisma.workItem.findMany({
+			skip,
+			take,
+			where: queries,
+			include: { assignee: true },
+			orderBy: [{ createdAt: "desc" }],
+		}),
+	]);
 };
 
 export const update = async (id: string, workItem: WorkItem) => {

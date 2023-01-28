@@ -27,7 +27,7 @@ export const find = async () => {
 		include: {
 			users: true,
 			_count: {
-				select: { productBacklogItems: true },
+				select: { workItems: true },
 			},
 		},
 		orderBy: [{ createdAt: "desc" }],

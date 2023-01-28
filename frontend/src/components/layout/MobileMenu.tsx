@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Link from "./Link";
 import { TbLayoutBoard, TbClipboardCheck } from "react-icons/tb";
 import classNames from "../../utilities/ClassNames";
+import User from "./User";
 export default function MobileMenu(props: any) {
 	const location = useLocation();
 	const { pathname } = location;
@@ -23,12 +24,12 @@ export default function MobileMenu(props: any) {
 			)}
 			<div
 				className={classNames(
-					props.expand ? "w-64 translate-x-0" : "w-0 -translate-x-64",
+					props.expand ? "w-56 translate-x-0" : "w-0 -translate-x-64",
 					"fixed z-50 h-full duration-300 lg:hidden"
 				)}
 			>
 				<div className="h-full bg-white pt-20 pr-4 pl-1.5 dark:bg-slate-900">
-					<div className="flex flex-col gap-5">
+					<div className="flex h-full flex-col gap-5">
 						<Link
 							to="/"
 							active={homeRef}
@@ -56,6 +57,10 @@ export default function MobileMenu(props: any) {
 							}
 							text="My Tasks"
 						/>
+						<div className="flex-1"></div>
+						<div className="w-52 pb-10">
+							<User mobile />
+						</div>
 					</div>
 				</div>
 			</div>

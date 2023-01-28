@@ -8,7 +8,7 @@ export const BugIcon = ({ size }: { size: number }) => (
 );
 export const TaskIcon = ({ size }: { size: number }) => (
 	<TbCheckupList
-		className="fill-emerald-200 stroke-emerald-600 dark:fill-emerald-600 dark:stroke-emerald-200"
+		className="fill-indigo-200 stroke-indigo-600 dark:fill-indigo-600 dark:stroke-indigo-200"
 		size={size}
 	/>
 );

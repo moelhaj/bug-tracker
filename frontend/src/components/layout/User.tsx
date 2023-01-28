@@ -5,7 +5,7 @@ import classNames from "../../utilities/ClassNames";
 import { setDarkMode } from "../../app/slices/themeSlice";
 import { removeCredentials } from "../../app/slices/userSlice";
 
-export default function User() {
+export default function User(props: any) {
 	const dispatch = useAppDispatch();
 	const { user } = useAppSelector((state: any) => state.user);
 	const { darkMode } = useAppSelector((state: any) => state.theme);
@@ -20,14 +20,29 @@ export default function User() {
 	const userButton = (
 		<div
 			onClick={() => setShowMenu(prev => !prev)}
-			className="grid cursor-pointer place-content-center rounded-full duration-300 hover:bg-gray-100 dark:hover:bg-slate-700 md:p-2"
+			className={classNames(
+				props.mobile
+					? "flex items-center gap-2 rounded-md"
+					: "grid place-content-center rounded-full",
+				"cursor-pointer duration-300 hover:bg-gray-100 dark:hover:bg-slate-700 md:p-2"
+			)}
 		>
 			<img
 				className="h-7 w-7 rounded-full object-contain"
-				src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+				src={`http://localhost:3500/${user?.id}.png`}
 				crossOrigin="anonymous"
 				alt="avatar"
 			/>
+			{props.mobile && (
+				<div className="hidden flex-col md:flex">
+					<span className="text-sm leading-3 text-gray-700 dark:text-gray-100">
+						{user.name}
+					</span>
+					<span className="text-xs leading-3 text-gray-400 dark:text-gray-200">
+						{user?.title}
+					</span>
+				</div>
+			)}
 		</div>
 	);
 

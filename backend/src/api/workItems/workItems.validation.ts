@@ -11,7 +11,7 @@ const validate = () => {
 				type: Joi.string().required(),
 				assigneeId: Joi.string().required(),
 				assigneeName: Joi.allow(null),
-				productBacklogItemId: Joi.string().required(),
+				projectId: Joi.string().required(),
 			});
 			const workItem = {
 				title: req.body.title,
@@ -19,7 +19,7 @@ const validate = () => {
 				state: req.body.state,
 				type: req.body.type,
 				assigneeId: req.body.assigneeId,
-				productBacklogItemId: req.body.productBacklogItemId,
+				projectId: req.body.projectId,
 			};
 			await workItemSchema.validate(req.body);
 			req.body = workItem;
