@@ -1,7 +1,7 @@
 import express from "express";
 import * as controller from "./workItems.controller";
 import catchAsync from "../../utils/catchAsync";
-import { auth, admin } from "../auth/auth.middleware";
+import { auth } from "../auth/auth.middleware";
 import validate from "./workItems.validation";
 
 const router = express.Router();
