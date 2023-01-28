@@ -15,7 +15,7 @@ export default function Header(props: any) {
 			<div className="flex-1" />
 			{user.roles.includes("admin") && (
 				<button
-					onClick={() => setModals({ ...modals, workItem: true })}
+					onClick={() => setModals({ ...modals, new: true })}
 					className="btn btn-primary px-2 py-1"
 				>
 					New Work Item
