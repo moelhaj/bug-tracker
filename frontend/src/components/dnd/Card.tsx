@@ -42,7 +42,7 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 				<div className="mt-2 flex items-center gap-1">
 					<img
 						className="h-5 w-5 rounded-full object-contain"
-						src={`http://localhost:3500/${item?.assignee?.id}.png`}
+						src={`https://mo-backend-issue-tracker.onrender.com/${item?.assignee?.id}.png`}
 						crossOrigin="anonymous"
 						alt="avatar"
 					/>

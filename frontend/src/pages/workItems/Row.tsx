@@ -25,7 +25,7 @@ export default function Row(props: any) {
 						key={item.assignee.id}
 						className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-gray-900"
 						crossOrigin="anonymous"
-						src={`http://localhost:3500/${item.assignee?.id}.png`}
+						src={`https://mo-backend-issue-tracker.onrender.com/${item.assignee?.id}.png`}
 						alt={"user"}
 					/>
 					<p>{item.assignee.name}</p>
