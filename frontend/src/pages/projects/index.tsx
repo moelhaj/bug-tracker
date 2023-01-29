@@ -107,7 +107,7 @@ export default function Dashboard() {
 														key={user.id}
 														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-gray-900"
 														crossOrigin="anonymous"
-														src={`http://localhost:3500/${user?.id}.png`}
+														src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
 														alt={"user"}
 													/>
 												))}
