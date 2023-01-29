@@ -46,7 +46,7 @@ export default function UserSelect(props: any) {
 					<TbX size={18} />
 				</div>
 			</div>
-			<div className="y-scroll mt-5 h-48 overflow-hidden overflow-y-scroll rounded-md border border-gray-300 pl-3 pt-3 pb-3 dark:border-gray-900">
+			<div className="y-scroll mt-5 h-32 overflow-hidden overflow-y-scroll rounded-md border border-gray-300 pl-3 pt-3 pb-3 dark:border-gray-900 lg:h-48">
 				<div className="grid grid-cols-1 gap-2 md:grid-cols-2">
 					{filteredUsers.map((user: any) => (
 						<div
@@ -61,7 +61,7 @@ export default function UserSelect(props: any) {
 						>
 							<img
 								className="h-7 w-7 rounded-full object-contain"
-								src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+								src={`http://localhost:3500/${user?.id}.png`}
 								crossOrigin="anonymous"
 								alt="avatar"
 							/>

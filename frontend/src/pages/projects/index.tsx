@@ -58,22 +58,7 @@ export default function Dashboard() {
 
 	return (
 		<>
-			<div className="p-1 md:p-3">
-				{metrics && (
-					<div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
-						<Metric
-							icon={<TbReportAnalytics size={20} />}
-							name="Projects"
-							amount={metrics?.projectsCount}
-						/>
-						<Metric
-							icon={<TbCheckupList size={20} />}
-							name="Tasks"
-							amount={metrics?.taskCount}
-						/>
-						<Metric icon={<TbBug size={20} />} name="Bugs" amount={metrics?.bugCount} />
-					</div>
-				)}
+			<div className="p-2 md:p-3">
 				{/* Header */}
 				<h1 className="mt-10 pl-1 text-lg font-bold">Projects</h1>
 
@@ -108,7 +93,7 @@ export default function Dashboard() {
 									return (
 										<div
 											key={project.id}
-											onClick={() => navigate(`/project/${project.id}`)}
+											onClick={() => navigate(project.id)}
 											className="flex cursor-pointer flex-col rounded-md border bg-white p-3 shadow-sm duration-300 hover:bg-gray-50 dark:border-none dark:bg-gray-800"
 										>
 											<h1 className="text-lg font-bold">{project.title}</h1>
@@ -122,7 +107,7 @@ export default function Dashboard() {
 														key={user.id}
 														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-gray-900"
 														crossOrigin="anonymous"
-														src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+														src={`http://localhost:3500/${user?.id}.png`}
 														alt={"user"}
 													/>
 												))}

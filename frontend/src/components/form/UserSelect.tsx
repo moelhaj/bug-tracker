@@ -53,7 +53,7 @@ export default function UserSelect(props: any) {
 						placeholder="Search"
 					/>
 				</div>
-				<div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+				<div className="y-scroll grid h-32 grid-cols-1 gap-2 overflow-hidden overflow-y-scroll md:grid-cols-2 lg:h-48">
 					{users?.map((user: any) => (
 						<div
 							onClick={() => {
@@ -71,7 +71,7 @@ export default function UserSelect(props: any) {
 						>
 							<img
 								className="h-7 w-7 rounded-full object-contain"
-								src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+								src={`http://localhost:3500/${user?.id}.png`}
 								crossOrigin="anonymous"
 								alt="avatar"
 							/>

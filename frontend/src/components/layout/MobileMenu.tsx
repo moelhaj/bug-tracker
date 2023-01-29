@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Link from "./Link";
-import { TbLayoutBoard, TbClipboardCheck } from "react-icons/tb";
+import { TbLayoutBoard, TbClipboardCheck, TbListDetails } from "react-icons/tb";
 import classNames from "../../utilities/ClassNames";
 import User from "./User";
 export default function MobileMenu(props: any) {
 	const location = useLocation();
 	const { pathname } = location;
 
-	const homeRef = !pathname.includes("/assigned");
+	const homeRef = !pathname.includes("assigned") && !pathname.includes("projects");
 
 	useEffect(() => {
 		props.setExpand(false);
@@ -39,6 +39,19 @@ export default function MobileMenu(props: any) {
 									className={classNames(homeRef ? "fill-indigo-200" : "")}
 								/>
 							}
+							text="Dashboard"
+						/>
+						<Link
+							to="/projects"
+							active={pathname.includes("projects")}
+							icon={
+								<TbListDetails
+									size={23}
+									className={classNames(
+										pathname.includes("projects") ? "fill-indigo-200" : ""
+									)}
+								/>
+							}
 							text="Projects"
 						/>
 						<Link
@@ -48,10 +61,7 @@ export default function MobileMenu(props: any) {
 								<TbClipboardCheck
 									size={23}
 									className={classNames(
-										pathname.includes("projects") ||
-											pathname.includes("work-items")
-											? "fill-indigo-200"
-											: ""
+										pathname.includes("assigned") ? "fill-indigo-200" : ""
 									)}
 								/>
 							}

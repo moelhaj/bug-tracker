@@ -22,8 +22,8 @@ export default function MainLayout() {
 			<div className="mx-auto flex h-full min-h-screen w-full max-w-7xl text-base dark:bg-gray-800 lg:h-screen">
 				<Sidebar />
 				<MobileMenu expand={expand} setExpand={setExpand} />
-				<div className="h-full w-full flex-1 p-0 md:min-h-screen lg:min-h-full lg:p-4">
-					<div className="h-full w-full rounded-md bg-white shadow-sm dark:border-gray-900 dark:bg-gray-900 md:min-h-screen lg:min-h-full">
+				<div className="h-full min-h-screen w-full flex-1 p-0 lg:min-h-full lg:p-4">
+					<div className="h-full min-h-screen w-full rounded-md bg-white shadow-sm dark:border-gray-900 dark:bg-gray-900 lg:min-h-full">
 						<Header expand={expand} setExpand={setExpand} />
 						<Outlet />
 					</div>

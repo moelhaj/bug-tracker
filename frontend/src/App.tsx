@@ -3,6 +3,7 @@ import "./App.css";
 
 import MainLayout from "./components/layout/MainLayout";
 import Login from "./pages/auth/LoginPage";
+import Dashboard from "./pages/dashboard";
 import Projects from "./pages/projects";
 import WorkItems from "./pages/workItems";
 import Assigned from "./pages/assigned";
@@ -23,9 +24,10 @@ export default function App() {
 				<Route element={<Prefetch />}>
 					<Route element={<MainLayout />}>
 						<Route path="/">
-							<Route index element={<Projects />} />
+							<Route index element={<Dashboard />} />
 						</Route>
-						<Route path="/project">
+						<Route path="/projects">
+							<Route index element={<Projects />} />
 							<Route path=":projectId" element={<WorkItems />} />
 						</Route>
 						<Route path="/assigned">

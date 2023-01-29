@@ -30,7 +30,7 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div className="p-1 md:p-3">
+		<div className="p-2 md:p-3">
 			<div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
 				<Metric
 					icon={<TbReportAnalytics size={20} />}

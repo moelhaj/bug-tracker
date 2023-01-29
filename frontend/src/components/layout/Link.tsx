@@ -32,7 +32,7 @@ export default function Link(props: any) {
 					to={props.to}
 					className={classNames(
 						props.active ? "text-indigo-600 dark:text-indigo-300" : "",
-						"flex w-full cursor-pointer items-center gap-3 p-2 duration-300 hover:text-indigo-600 dark:hover:text-indigo-300"
+						"flex w-full cursor-pointer items-center gap-3 py-2 duration-300 hover:text-indigo-600 dark:hover:text-indigo-300"
 					)}
 				>
 					<div

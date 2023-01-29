@@ -8,7 +8,10 @@ export default function Header(props: any) {
 	return (
 		<div className="mt-5 flex items-center">
 			<div>
-				<button onClick={() => navigate("/")} className="btn btn-secondary px-2 py-1">
+				<button
+					onClick={() => navigate("/projects")}
+					className="btn btn-secondary px-2 py-1"
+				>
 					Back
 				</button>
 			</div>

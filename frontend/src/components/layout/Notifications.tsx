@@ -32,12 +32,12 @@ export default function Notifications() {
 				refetch();
 				setShowMenu(prev => !prev);
 			}}
-			className="cursor-pointer rounded-full p-2 duration-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+			className="cursor-pointer"
 		>
 			{newNotification && (
 				<>
-					<div className="absolute top-3 right-3 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-600" />
-					<div className="absolute top-3 right-3 h-1.5 w-1.5 rounded-full bg-indigo-600" />
+					<div className="absolute top-1 right-1 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-600" />
+					<div className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-indigo-600" />
 				</>
 			)}
 			<TbBell size={25} />
