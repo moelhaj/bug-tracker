@@ -60,7 +60,7 @@ export default function Notifications() {
 				<div className="whitespace-nowrap py-2 px-4">No new notifications</div>
 			)}
 			{isSuccess && notifications.length > 0 && (
-				<div className="y-scroll h-40 w-72 overflow-hidden overflow-y-scroll py-3 pl-3">
+				<div className="y-scroll h-40 w-72 overflow-hidden overflow-y-scroll py-3 pl-3 pr-3 lg:pr-0">
 					<div className="flex items-center justify-between">
 						<h1 className="text-lg font-bold">Notifications</h1>
 						<div

@@ -16,9 +16,9 @@ export default function Table(props: any) {
 
 	return (
 		<>
-			<div className="x-scroll mt-7 overflow-hidden overflow-x-scroll rounded-md border border-gray-200 bg-white dark:border-none dark:bg-gray-800">
+			<div className="x-scroll mt-7 w-full overflow-hidden overflow-x-scroll rounded-md border border-gray-200 bg-white dark:border-none dark:bg-gray-800">
 				{/* Header */}
-				<div className="flex items-center justify-between border-b border-b-gray-200 bg-white p-2 dark:border-none dark:bg-gray-700">
+				<div className="flex w-full items-center justify-between border-b border-b-gray-200 bg-white p-2 dark:border-none dark:bg-gray-700">
 					<input
 						onChange={(e: any) => setKeyword(e.target.value)}
 						className="input"
@@ -26,9 +26,9 @@ export default function Table(props: any) {
 						placeholder="Search"
 					/>
 				</div>
-				<table className="w-full border-collapse">
-					<thead className="text-sm">
-						<tr className="border-b border-b-gray-200 text-left text-base font-bold dark:border-none">
+				<table className="w-full border-collapse text-sm sm:text-base">
+					<thead>
+						<tr className="border-b border-b-gray-200 text-left font-bold dark:border-none">
 							<td>Title</td>
 							<td>Type</td>
 							<td>State</td>

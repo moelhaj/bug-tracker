@@ -16,6 +16,7 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 			draggable
 			onDragStart={(e: any) => handleDragStart(e, item)}
 			onTouchStart={(e: any) => handleDragStart(e, item)}
+			onTouchMove={e => e.preventDefault()}
 			onDragOver={e => e.preventDefault()}
 			className={classNames(
 				dragOver ? "opacity-50" : "opacity-100",
@@ -23,7 +24,7 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 			)}
 		>
 			<div className="flex">
-				<div className="flex w-full items-center justify-between">
+				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-1">
 						{item?.type === "Bug" && <BugIcon size={15} />}
 						{item?.type === "Task" && <TaskIcon size={15} />}

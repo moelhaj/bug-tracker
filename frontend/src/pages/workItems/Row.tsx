@@ -15,7 +15,7 @@ export default function Row(props: any) {
 			<td>
 				<div className="flex items-center gap-2">
 					{item.type === "Task" ? <TaskIcon size={20} /> : <BugIcon size={20} />}
-					{item.type}
+					<div className="hidden sm:flex">{item.type}</div>
 				</div>
 			</td>
 			<td>{item.state}</td>
@@ -28,7 +28,7 @@ export default function Row(props: any) {
 						src={`https://mo-backend-issue-tracker.onrender.com/${item.assignee?.id}.png`}
 						alt={"user"}
 					/>
-					<p>{item.assignee.name}</p>
+					<p className="hidden sm:flex">{item.assignee.name}</p>
 				</div>
 			</td>
 		</tr>
