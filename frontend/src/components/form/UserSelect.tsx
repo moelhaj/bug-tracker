@@ -42,7 +42,7 @@ export default function UserSelect(props: any) {
 			)}
 			<DropDown
 				trigger={showMenu}
-				styles="bg-white dark:bg-slate-900 dark:border-slate-700 px-1 absolute z-20 top-10 flex flex-col gap-3 w-full pt-3 pl-3 pb-3 rounded-md border border-gray-300"
+				styles="bg-white dark:bg-gray-900 dark:border-gray-700 px-1 absolute z-20 top-10 flex flex-col gap-3 w-full pt-3 pl-3 pb-3 rounded-md border border-gray-300"
 			>
 				<div>
 					<input
@@ -64,14 +64,14 @@ export default function UserSelect(props: any) {
 							className={classNames(
 								props.user.id === user.id
 									? "bg-indigo-600 text-white"
-									: "bg-gray-100 dark:bg-slate-800",
+									: "bg-gray-100 dark:bg-gray-800",
 								"flex cursor-pointer items-center gap-3 rounded-md py-2 px-3 text-sm"
 							)}
 							key={user.id}
 						>
 							<img
 								className="h-7 w-7 rounded-full object-contain"
-								src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+								src={`http://localhost:3500/${user?.id}.png`}
 								crossOrigin="anonymous"
 								alt="avatar"
 							/>

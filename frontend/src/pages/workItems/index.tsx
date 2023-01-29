@@ -53,7 +53,7 @@ export default function WorkItems() {
 
 	return (
 		<>
-			<div className="p-3">
+			<div className="p-1 md:p-3">
 				<Header modals={modals} setModals={setModals} />
 				<Table
 					workItems={data?.workItems}

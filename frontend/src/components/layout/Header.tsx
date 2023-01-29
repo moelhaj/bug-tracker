@@ -14,7 +14,7 @@ export default function Header(props: any) {
 	}, [user]);
 
 	return (
-		<header className="flex items-center border-b border-b-gray-100 px-4 py-2 dark:border-b-slate-900">
+		<header className="flex items-center border-b border-b-gray-100 px-1 py-2 dark:border-b-gray-900 md:px-3">
 			<div className="lg:hidden">
 				<Toggler toggleMenu={() => props.setExpand(!props.expand)} menu={props.expand} />
 			</div>

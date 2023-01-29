@@ -24,31 +24,32 @@ export default function Column({
 	showUser,
 }: Props) {
 	return (
-		<div
-			onDragOver={e => {
-				e.preventDefault();
-				setDragOver(dragName);
-			}}
-			onDrop={() => handleDragEnter(dragName)}
-			className="y-scroll relative flex h-full flex-col gap-5 overflow-hidden overflow-y-scroll rounded-md pl-3 pt-3 pb-3 duration-300"
-		>
-			<h1
+		<div className="flex flex-col gap-3 p-1">
+			<h1 className="text-lg font-bold duration-300">{title}</h1>
+			<div
+				onDragOver={e => {
+					e.preventDefault();
+					setDragOver(dragName);
+				}}
+				onDrop={() => handleDragEnter(dragName)}
+				onTouchEnd={() => handleDragEnter(dragName)}
 				className={classNames(
-					dragOver === dragName ? "text-indigo-600" : "",
-					"font-bold duration-300"
+					dragOver === dragName
+						? "border border-indigo-600 ring-2 ring-indigo-600"
+						: "border-none ring-0",
+					"column-height y-scroll relative flex h-full flex-col gap-5 overflow-hidden overflow-y-scroll rounded-md bg-gray-100 pl-3 pt-3 pb-3 duration-300 dark:bg-gray-800"
 				)}
 			>
-				{title}
-			</h1>
-			<div className="flex flex-col gap-3">
-				{rows.map((item: any) => (
-					<Card
-						showUser={showUser}
-						handleDragStart={handleDragStart}
-						key={item.id}
-						item={item}
-					/>
-				))}
+				<div className="flex flex-col gap-3">
+					{rows.map((item: any) => (
+						<Card
+							showUser={showUser}
+							handleDragStart={handleDragStart}
+							key={item.id}
+							item={item}
+						/>
+					))}
+				</div>
 			</div>
 		</div>
 	);

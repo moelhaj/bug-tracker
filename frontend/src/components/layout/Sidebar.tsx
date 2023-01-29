@@ -10,7 +10,7 @@ export default function Sidebar() {
 
 	const homeRef = !pathname.includes("/assigned");
 	return (
-		<div className="my-4 ml-4 hidden flex-col gap-10 rounded-md bg-white p-2 duration-300 dark:border-slate-900 dark:bg-slate-900 lg:flex">
+		<div className="my-4 ml-4 hidden flex-col gap-10 rounded-md bg-white p-2 duration-300 dark:border-gray-900 dark:bg-gray-900 lg:flex">
 			<div className="flex h-full flex-col gap-5">
 				<Link
 					small

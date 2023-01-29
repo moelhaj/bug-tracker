@@ -16,7 +16,7 @@ export default function Stepper(props: any) {
 										? "bg-indigo-600"
 										: props.step >= current + 1
 										? "bg-indigo-300"
-										: "bg-gray-200 dark:bg-slate-600",
+										: "bg-gray-200 dark:bg-gray-600",
 									"grid h-5 w-5 place-content-center rounded-full"
 								)}
 							>
@@ -26,7 +26,7 @@ export default function Stepper(props: any) {
 											? "bg-indigo-600"
 											: props.step > current + 1
 											? "bg-indigo-600"
-											: "bg-gray-300 dark:bg-slate-700",
+											: "bg-gray-300 dark:bg-gray-700",
 										"grid h-3 w-3 place-content-center rounded-full text-white"
 									)}
 								>

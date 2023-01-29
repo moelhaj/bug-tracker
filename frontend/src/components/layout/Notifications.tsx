@@ -32,7 +32,7 @@ export default function Notifications() {
 				refetch();
 				setShowMenu(prev => !prev);
 			}}
-			className="cursor-pointer rounded-full p-2 duration-300 hover:bg-gray-100 dark:hover:bg-slate-700"
+			className="cursor-pointer rounded-full p-2 duration-300 hover:bg-gray-100 dark:hover:bg-gray-700"
 		>
 			{newNotification && (
 				<>
@@ -71,8 +71,8 @@ export default function Notifications() {
 							}}
 							className={classNames(
 								newNotification
-									? "cursor-pointer text-indigo-600 hover:bg-slate-100"
-									: "cursor-default text-slate-700 dark:text-gray-100",
+									? "cursor-pointer text-indigo-600 hover:bg-gray-100"
+									: "cursor-default text-gray-700 dark:text-gray-100",
 								"rounded-md p-1 duration-300"
 							)}
 						>
@@ -101,10 +101,10 @@ export default function Notifications() {
 								)}
 
 								<div className="flex flex-col gap-1">
-									<p className="text-sm leading-3 text-slate-600 dark:text-gray-100">
+									<p className="text-sm leading-3 text-gray-600 dark:text-gray-100">
 										{notification.details}
 									</p>
-									<p className="text-xs leading-3 text-slate-400 dark:text-gray-200">
+									<p className="text-xs leading-3 text-gray-400 dark:text-gray-200">
 										{notificationTime(notification.date)}
 									</p>
 								</div>

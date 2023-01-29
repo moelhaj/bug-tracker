@@ -2,17 +2,17 @@ import { motion } from "framer-motion";
 import { TbFaceIdError, TbFaceId } from "react-icons/tb";
 
 const Box = () => (
-	<motion.div className="my-1 w-32 rounded-md bg-gray-100 p-2 dark:bg-slate-800">
+	<motion.div className="my-1 w-32 rounded-md bg-gray-100 p-2 dark:bg-gray-800">
 		<div className="flex animate-pulse items-center space-x-2">
-			<div className="h-7 w-7 rounded-md bg-gray-300 dark:bg-slate-700"></div>
+			<div className="h-7 w-7 rounded-md bg-gray-300 dark:bg-gray-700"></div>
 			<div className="flex-1 space-y-1 py-1">
-				<div className="h-1.5 rounded bg-gray-300 dark:bg-slate-700"></div>
+				<div className="h-1.5 rounded bg-gray-300 dark:bg-gray-700"></div>
 				<div className="space-y-1">
 					<div className="grid grid-cols-3 gap-1">
-						<div className="col-span-2 h-1.5 rounded bg-gray-300 dark:bg-slate-700"></div>
-						<div className="col-span-1 h-1.5 rounded bg-gray-300 dark:bg-slate-700"></div>
+						<div className="col-span-2 h-1.5 rounded bg-gray-300 dark:bg-gray-700"></div>
+						<div className="col-span-1 h-1.5 rounded bg-gray-300 dark:bg-gray-700"></div>
 					</div>
-					<div className="h-1.5 rounded bg-gray-300 dark:bg-slate-700"></div>
+					<div className="h-1.5 rounded bg-gray-300 dark:bg-gray-700"></div>
 				</div>
 			</div>
 		</div>
@@ -63,19 +63,19 @@ export const ErrorSkeleton = ({ message }: { message: string }) => {
 export const NoContentSkeleton = ({ message }: { message: string }) => {
 	return (
 		<div className="flex w-36 flex-col items-center gap-3">
-			<div className="my-1 w-full rounded-md bg-gray-100 p-2 dark:bg-slate-900">
+			<div className="my-1 w-full rounded-md bg-gray-100 p-2 dark:bg-gray-900">
 				<div className="flex items-center space-x-2">
-					<div className="grid h-7 w-7 place-content-center rounded-md bg-white dark:bg-slate-800 dark:text-slate-500">
+					<div className="grid h-7 w-7 place-content-center rounded-md bg-white dark:bg-gray-800 dark:text-gray-500">
 						<TbFaceId size={30} />
 					</div>
 					<div className="flex-1 space-y-1 py-1">
-						<div className="h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
+						<div className="h-1.5 rounded bg-gray-200 dark:bg-gray-700"></div>
 						<div className="space-y-1">
 							<div className="grid grid-cols-3 gap-1">
-								<div className="col-span-2 h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
-								<div className="col-span-1 h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
+								<div className="col-span-2 h-1.5 rounded bg-gray-200 dark:bg-gray-700"></div>
+								<div className="col-span-1 h-1.5 rounded bg-gray-200 dark:bg-gray-700"></div>
 							</div>
-							<div className="h-1.5 rounded bg-gray-200 dark:bg-slate-700"></div>
+							<div className="h-1.5 rounded bg-gray-200 dark:bg-gray-700"></div>
 						</div>
 					</div>
 				</div>
@@ -91,7 +91,7 @@ export const TableSkeleton = (props: any) => {
 	return (
 		<tbody>
 			{rows.map((row: any) => (
-				<tr key={`skeleton-row-${row * Date.now()}`} className="dark:border-b-slate-800">
+				<tr key={`skeleton-row-${row * Date.now()}`} className="dark:border-b-gray-800">
 					{columns.map((column: any) => (
 						<td
 							key={`skeleton-column-${column * Date.now()}`}
@@ -99,7 +99,7 @@ export const TableSkeleton = (props: any) => {
 						>
 							<div
 								style={{ height: "28px" }}
-								className="w-full animate-pulse rounded bg-gray-200 dark:bg-slate-900"
+								className="w-full animate-pulse rounded bg-gray-200 dark:bg-gray-900"
 							></div>
 						</td>
 					))}

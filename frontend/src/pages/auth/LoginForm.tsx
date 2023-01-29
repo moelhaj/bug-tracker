@@ -42,7 +42,7 @@ export default function LoginForm({ handleSubmit, account, setAccount, isLoading
 					className="input w-full"
 				/>
 				<div
-					className="absolute top-2.5 right-3 z-50 cursor-pointer select-none text-slate-400 dark:text-slate-100"
+					className="absolute top-2 right-3 z-50 cursor-pointer select-none text-gray-400 dark:text-gray-100"
 					onClick={() => setAccount({ ...account, showPassword: !account.showPassword })}
 				>
 					{account.showPassword ? <TbEyeOff size={16} /> : <TbEye size={16} />}

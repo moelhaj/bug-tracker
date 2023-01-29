@@ -19,11 +19,11 @@ export default function MainLayout() {
 
 	return (
 		<>
-			<div className="mx-auto flex h-full  w-full max-w-7xl text-base dark:bg-slate-800 lg:h-screen">
+			<div className="mx-auto flex h-full min-h-screen w-full max-w-7xl text-base dark:bg-gray-800 lg:h-screen">
 				<Sidebar />
 				<MobileMenu expand={expand} setExpand={setExpand} />
-				<div className="h-full w-full flex-1 p-0 lg:p-4">
-					<div className="h-full w-full rounded-md bg-white shadow-sm dark:border-slate-900 dark:bg-slate-900">
+				<div className="h-full w-full flex-1 p-0 md:min-h-screen lg:min-h-full lg:p-4">
+					<div className="h-full w-full rounded-md bg-white shadow-sm dark:border-gray-900 dark:bg-gray-900 md:min-h-screen lg:min-h-full">
 						<Header expand={expand} setExpand={setExpand} />
 						<Outlet />
 					</div>
@@ -32,8 +32,8 @@ export default function MainLayout() {
 			{/* Snackbar */}
 			<div
 				className={classNames(
-					snack ? "top-7" : "-top-14",
-					"font-codex fixed left-1/2 -translate-x-1/2 rounded-md bg-indigo-600 p-2 text-base text-white duration-300"
+					snack ? "top-7" : "-top-16",
+					"font-codex fixed left-1/2 -translate-x-1/2 transform rounded-md bg-indigo-600 p-2 text-base text-white duration-300"
 				)}
 			>
 				You have a new notification

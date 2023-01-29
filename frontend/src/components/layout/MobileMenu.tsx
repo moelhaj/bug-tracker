@@ -18,7 +18,7 @@ export default function MobileMenu(props: any) {
 		<>
 			{props.expand && (
 				<div
-					className="fixed inset-0 z-40 bg-slate-800 bg-opacity-30"
+					className="fixed inset-0 z-40 bg-gray-800 bg-opacity-30"
 					onClick={() => props.setExpand(false)}
 				></div>
 			)}
@@ -28,7 +28,7 @@ export default function MobileMenu(props: any) {
 					"fixed z-50 h-full duration-300 lg:hidden"
 				)}
 			>
-				<div className="h-full bg-white pt-20 pr-4 pl-1.5 dark:bg-slate-900">
+				<div className="h-full bg-white pt-20 pr-4 pl-1.5 dark:bg-gray-900">
 					<div className="flex h-full flex-col gap-5">
 						<Link
 							to="/"

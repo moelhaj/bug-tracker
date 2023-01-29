@@ -17,7 +17,11 @@ import Metric from "./Metric";
 export default function Dashboard() {
 	const { user } = useAppSelector((state: any) => state.user);
 	const navigate = useNavigate();
-	const { data: metrics, isLoading: metricsIsLoading } = useGetMetricsQuery(undefined, {
+	const {
+		data: metrics,
+		isLoading: metricsIsLoading,
+		refetch,
+	} = useGetMetricsQuery(undefined, {
 		// pollingInterval: 15000,
 		refetchOnFocus: true,
 		refetchOnMountOrArgChange: true,
@@ -54,7 +58,7 @@ export default function Dashboard() {
 
 	return (
 		<>
-			<div className="p-3">
+			<div className="p-1 md:p-3">
 				{metrics && (
 					<div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
 						<Metric
@@ -82,7 +86,7 @@ export default function Dashboard() {
 
 				{projects && projects?.length > 0 && (
 					<div className="dashboard-height large-y-scroll mt-3 overflow-hidden overflow-y-scroll rounded-md pt-1">
-						<div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+						<div className="grid grid-flow-row auto-rows-max grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
 							{[...projects, { last: true }].map((project: any) => {
 								// console.log(project.last);
 								// return <div>test</div>;
@@ -92,7 +96,7 @@ export default function Dashboard() {
 											<div
 												onClick={() => setNewProject(true)}
 												key="last-project"
-												className="project-card-height flex cursor-pointer flex-col items-center justify-center rounded-md border bg-white p-3 text-gray-300 shadow-sm duration-300 hover:bg-gray-50 hover:text-gray-700 dark:border-none dark:bg-slate-800 dark:text-gray-600 dark:hover:text-gray-300"
+												className="project-card-height flex cursor-pointer flex-col items-center justify-center rounded-md border bg-white p-3 text-gray-300 shadow-sm duration-300 hover:bg-gray-50 hover:text-gray-700 dark:border-none dark:bg-gray-800 dark:text-gray-600 dark:hover:text-gray-300"
 											>
 												<TbPlus size={50} />
 											</div>
@@ -105,7 +109,7 @@ export default function Dashboard() {
 										<div
 											key={project.id}
 											onClick={() => navigate(`/project/${project.id}`)}
-											className="flex cursor-pointer flex-col rounded-md border bg-white p-3 shadow-sm duration-300 hover:bg-gray-50 dark:border-none dark:bg-slate-800"
+											className="flex cursor-pointer flex-col rounded-md border bg-white p-3 shadow-sm duration-300 hover:bg-gray-50 dark:border-none dark:bg-gray-800"
 										>
 											<h1 className="text-lg font-bold">{project.title}</h1>
 											<p className="whitespace-pre-wrap text-gray-600 dark:text-gray-300">
@@ -116,9 +120,9 @@ export default function Dashboard() {
 												{project.users.map((user: any) => (
 													<img
 														key={user.id}
-														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-slate-900"
+														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-gray-900"
 														crossOrigin="anonymous"
-														src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+														src={`http://localhost:3500/${user?.id}.png`}
 														alt={"user"}
 													/>
 												))}

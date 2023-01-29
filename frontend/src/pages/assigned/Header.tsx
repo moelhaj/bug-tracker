@@ -28,10 +28,8 @@ export default function Header({
 	setFilter,
 }: Props) {
 	return (
-		<div className="flex items-center p-3">
-			<h1 className="pl-3 text-lg font-bold">Assigned to me</h1>
-			<div className="flex-1" />
-			<div className="mr-2">
+		<div className="flex items-center justify-end">
+			<div className="">
 				<Menu
 					hide={hideMenu}
 					isOpen={filterMenu}
@@ -51,7 +49,7 @@ export default function Header({
 							placeholder="Search"
 							value={keyword}
 							onChange={(e: any) => setKeyword(e.target.value)}
-							className="mb-2 select-none rounded-md border border-gray-300 bg-white py-2 px-3 text-base leading-tight duration-300 focus:border-indigo-600 focus:ring-indigo-600 dark:border-slate-700 dark:bg-slate-800"
+							className="mb-2 select-none rounded-md border border-gray-300 bg-white py-2 px-3 text-base leading-tight duration-300 focus:border-indigo-600 focus:ring-indigo-600 dark:border-gray-700 dark:bg-gray-800"
 						/>
 						{filterTypes &&
 							filterTypes.map((item: any) => (

@@ -83,7 +83,7 @@ export default function Assigned() {
 		);
 
 	return (
-		<div className="content-height flex flex-col p-3 dark:bg-slate-900 md:dark:bg-slate-900">
+		<div className="content-height flex flex-col p-1 dark:bg-gray-900 md:p-3 md:dark:bg-gray-900">
 			{isLoading && (
 				<div className="grid place-content-center py-40">
 					<LoadingSkeleton />
@@ -111,7 +111,7 @@ export default function Assigned() {
 						toggleFilterMenu={() => setFilterMenu((prev: any) => !prev)}
 					/>
 
-					<div className="grid flex-1 grid-cols-1 gap-3 overflow-hidden p-3 dark:divide-gray-700 lg:grid-cols-3">
+					<div className="grid flex-1 grid-cols-1 gap-3 overflow-hidden dark:divide-gray-700 lg:grid-cols-3">
 						{/* To Do */}
 						<Column
 							showUser={false}

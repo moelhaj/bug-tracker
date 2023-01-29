@@ -31,11 +31,11 @@ export default function Select(props: any) {
 			)}
 			<DropDown
 				trigger={showMenu}
-				styles="bg-white dark:bg-slate-900 px-1 absolute z-10 top-10 flex flex-col w-full py-2 rounded-md border border-gray-300 dark:border-slate-700"
+				styles="bg-white dark:bg-gray-900 px-1 absolute z-10 top-10 flex flex-col w-full py-2 rounded-md border border-gray-300 dark:border-gray-700"
 			>
 				{props.items?.map((item: any, index: number) => (
 					<div
-						className="w-full cursor-pointer rounded-md bg-white p-2 duration-300 hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800"
+						className="w-full cursor-pointer rounded-md bg-white p-2 duration-300 hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
 						onClick={() => props.setSelected(item)}
 						key={item}
 					>

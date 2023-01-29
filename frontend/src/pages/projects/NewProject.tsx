@@ -100,7 +100,7 @@ export default function NewProject(props: any) {
 				animate={props.open ? "enter" : "exit"}
 				variants={appearAnimation}
 			>
-				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-slate-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
+				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-6 px-3 text-white">
 						<h1 className="text-lg font-bold">New Project</h1>
 						<button onClick={props.close}>
@@ -138,7 +138,7 @@ export default function NewProject(props: any) {
 										</div>
 
 										{/* Project dates */}
-										<div className="flex flex-col items-center gap-10 md:flex-row">
+										<div className="flex flex-col items-center gap-3 md:flex-row md:gap-7">
 											<div className="w-full">
 												<DatePicker
 													label="Start Date"

@@ -33,13 +33,13 @@ export default function DatePicker(props: any) {
 			</div>
 			{showCalendar && (
 				<div
-					className="fixed inset-0 z-10 bg-transparent"
+					className="b fixed inset-0 z-10 bg-transparent"
 					onClick={() => setShowCalendar(false)}
 				></div>
 			)}
 			<DropDown
 				trigger={showCalendar}
-				styles="bg-white dark:bg-slate-900 dark:border-slate-700 px-1 absolute z-20 top-10 flex flex-col gap-3 w-full pt-3 pl-3 pb-3 rounded-md border border-gray-300"
+				styles="x-center bg-white dark:bg-gray-900 dark:border-gray-700 px-1 absolute z-20 top-10 flex flex-col gap-3 w-72 pt-3 pl-3 pb-3 rounded-md border border-gray-300"
 			>
 				<Calendar getDate={props.setDate} />
 			</DropDown>

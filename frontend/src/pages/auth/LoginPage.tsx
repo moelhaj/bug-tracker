@@ -42,16 +42,16 @@ export default function Login() {
 	};
 
 	return (
-		<div className="font-codex flex h-screen w-screen items-center justify-center bg-gray-100 text-base dark:bg-slate-800">
-			<div className="flex w-80 flex-col justify-center gap-5 rounded-xl bg-white p-5 dark:bg-slate-900">
-				<div className="relative flex h-10 w-full items-center justify-between rounded-md bg-gray-100 px-0.5 dark:bg-slate-700">
+		<div className="font-codex flex h-screen w-screen items-center justify-center bg-gray-100 text-base dark:bg-gray-800">
+			<div className="flex w-80 flex-col justify-center gap-5 rounded-xl bg-white p-5 dark:bg-gray-900">
+				<div className="relative flex h-10 w-full items-center justify-between rounded-md bg-gray-100 px-0.5 dark:bg-gray-700">
 					<div
 						style={{ width: "138px" }}
 						className={classNames(
 							account.current === "admin"
 								? "translate-x-0 transform"
 								: "translate-x-full transform",
-							"absolute h-9 rounded-md bg-white p-2 duration-300 dark:bg-slate-900"
+							"absolute h-9 rounded-md bg-white p-2 duration-300 dark:bg-gray-900"
 						)}
 					></div>
 					<div
