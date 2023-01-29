@@ -32,7 +32,6 @@ export default function Column({
 					setDragOver(dragName);
 				}}
 				onDrop={() => handleDragEnter(dragName)}
-				onTouchMove={() => handleDragEnter(dragName)}
 				className={classNames(
 					dragOver === dragName
 						? "border border-indigo-600 ring-2 ring-indigo-600"

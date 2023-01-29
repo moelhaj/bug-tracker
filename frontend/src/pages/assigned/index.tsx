@@ -8,6 +8,7 @@ import {
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
 import Header from "./Header";
+import Table from "./Table";
 
 export default function Assigned() {
 	const { data, isFetching, isLoading, isError } = useGetAssignedQuery(undefined, {
@@ -26,7 +27,6 @@ export default function Assigned() {
 	const [filterMenu, setFilterMenu] = useState(false);
 
 	useEffect(() => {
-		console.log(data);
 		if (!isFetching) {
 			setList(data);
 		}
@@ -111,7 +111,16 @@ export default function Assigned() {
 						toggleFilterMenu={() => setFilterMenu((prev: any) => !prev)}
 					/>
 
-					<div className="grid flex-1 grid-cols-1 gap-3 overflow-hidden dark:divide-gray-700 lg:grid-cols-3">
+					<div className="flex lg:hidden">
+						<Table
+							workItems={rows}
+							setState={async (state: string, item: any) =>
+								await updateWorkItem({ ...item, state })
+							}
+						/>
+					</div>
+
+					<div className="hidden flex-1 grid-cols-1 gap-3 overflow-hidden dark:divide-gray-700 lg:grid lg:grid-cols-3">
 						{/* To Do */}
 						<Column
 							showUser={false}

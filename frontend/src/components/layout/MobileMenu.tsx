@@ -69,7 +69,7 @@ export default function MobileMenu(props: any) {
 						/>
 						<div className="flex-1"></div>
 						<div className="w-52 pb-10">
-							<User mobile />
+							<User mobile close={() => props.setExpand(false)} />
 						</div>
 					</div>
 				</div>

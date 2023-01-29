@@ -29,7 +29,7 @@ export default function User(props: any) {
 		>
 			<img
 				className="h-7 w-7 rounded-full object-contain"
-				src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+				src={`http://localhost:3500/${user?.id}.png`}
 				crossOrigin="anonymous"
 				alt="avatar"
 			/>
@@ -62,6 +62,7 @@ export default function User(props: any) {
 							onClick={() => {
 								setShowMenu(false);
 								dispatch(setDarkMode(!darkMode));
+								props.close();
 							}}
 							className={classNames(
 								darkMode ? "bg-indigo-200 px-0.5" : "bg-gray-200 px-1",

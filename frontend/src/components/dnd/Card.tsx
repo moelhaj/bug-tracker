@@ -15,8 +15,6 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 		<div
 			draggable
 			onDragStart={(e: any) => handleDragStart(e, item)}
-			onTouchStart={(e: any) => handleDragStart(e, item)}
-			onTouchMove={e => e.preventDefault()}
 			onDragOver={e => e.preventDefault()}
 			className={classNames(
 				dragOver ? "opacity-50" : "opacity-100",
@@ -24,7 +22,7 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 			)}
 		>
 			<div className="flex">
-				<div className="flex items-center justify-between">
+				<div className="flex w-full items-center justify-between">
 					<div className="flex items-center gap-1">
 						{item?.type === "Bug" && <BugIcon size={15} />}
 						{item?.type === "Task" && <TaskIcon size={15} />}
@@ -43,7 +41,7 @@ export default function Card({ item, handleDragStart, dragOver, showUser }: Prop
 				<div className="mt-2 flex items-center gap-1">
 					<img
 						className="h-5 w-5 rounded-full object-contain"
-						src={`https://mo-backend-issue-tracker.onrender.com/${item?.assignee?.id}.png`}
+						src={`http://localhost:3500/${item?.assignee?.id}.png`}
 						crossOrigin="anonymous"
 						alt="avatar"
 					/>
