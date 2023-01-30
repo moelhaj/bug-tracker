@@ -33,7 +33,7 @@ export default function DatePicker(props: any) {
 			</div>
 			{showCalendar && (
 				<div
-					className="b fixed inset-0 z-10 bg-transparent"
+					className="b fixed inset-0 z-10 bg-black opacity-30"
 					onClick={() => setShowCalendar(false)}
 				></div>
 			)}

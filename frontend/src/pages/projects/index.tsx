@@ -7,7 +7,7 @@ import {
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
 import { TbBug, TbCheckupList, TbReportAnalytics, TbPlus, TbTemplate } from "react-icons/tb";
-import NewProject from "./NewProject";
+import New from "./New";
 import { useNavigate } from "react-router-dom";
 import RelativeTime from "../../utilities/RelativeTime";
 import TextOverflow from "../../utilities/TextOverflow";
@@ -131,7 +131,7 @@ export default function Dashboard() {
 					</div>
 				)}
 			</div>
-			{newProject && <NewProject open={newProject} close={() => setNewProject(false)} />}
+			{newProject && <New open={newProject} close={() => setNewProject(false)} />}
 		</>
 	);
 }

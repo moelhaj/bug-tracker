@@ -15,7 +15,7 @@ type Project = {
 	users: string[];
 };
 
-export default function NewProject(props: any) {
+export default function New(props: any) {
 	const [step, setStep] = useState(1);
 	const [error, setError] = useState<any>(null);
 	const steps = ["Project Details", "Project Team"];
@@ -101,7 +101,7 @@ export default function NewProject(props: any) {
 				variants={appearAnimation}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
-					<div className="svg-pattern flex items-center justify-between rounded-t-md py-6 px-3 text-white">
+					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">
 						<h1 className="text-lg font-bold">New Project</h1>
 						<button onClick={props.close}>
 							<TbX size={20} />
