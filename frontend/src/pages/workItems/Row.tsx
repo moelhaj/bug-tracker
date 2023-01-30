@@ -1,4 +1,3 @@
-import React from "react";
 import { TaskIcon, BugIcon } from "../../components/elements/Icons";
 
 export default function Row(props: any) {

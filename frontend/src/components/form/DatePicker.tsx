@@ -39,7 +39,7 @@ export default function DatePicker(props: any) {
 			)}
 			<DropDown
 				trigger={showCalendar}
-				styles="x-center bg-white dark:bg-gray-900 dark:border-gray-700 px-1 absolute z-20 top-10 flex flex-col gap-3 w-72 pt-3 pl-3 pb-3 rounded-md border border-gray-300"
+				styles="x-center bg-white dark:bg-gray-900 dark:border-gray-700 px-1 absolute z-20 -top-20 flex flex-col gap-3 w-72 pt-3 pl-3 pb-3 rounded-md border border-gray-300"
 			>
 				<Calendar getDate={props.setDate} />
 			</DropDown>

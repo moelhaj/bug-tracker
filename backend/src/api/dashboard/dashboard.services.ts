@@ -16,3 +16,21 @@ export const taskCount = async () => {
 		where: { type: "Task" },
 	});
 };
+
+export const getBugs = async (take: number) => {
+	return prisma.workItem.findMany({
+		take,
+		where: { type: "Bug" },
+		include: { assignee: true },
+		orderBy: [{ createdAt: "desc" }],
+	});
+};
+
+export const getTasks = async (take: number) => {
+	return prisma.workItem.findMany({
+		take,
+		where: { type: "Task" },
+		include: { assignee: true },
+		orderBy: [{ createdAt: "desc" }],
+	});
+};

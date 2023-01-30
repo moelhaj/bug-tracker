@@ -22,7 +22,7 @@ export default function User(props: any) {
 			onClick={() => setShowMenu(prev => !prev)}
 			className={classNames(
 				props.mobile
-					? "flex items-center gap-2 rounded-md"
+					? "flex items-center gap-5 rounded-md"
 					: "grid place-content-center rounded-full",
 				"cursor-pointer duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 md:p-2"
 			)}
@@ -62,7 +62,7 @@ export default function User(props: any) {
 							onClick={() => {
 								setShowMenu(false);
 								dispatch(setDarkMode(!darkMode));
-								props.close();
+								props.close && props.close();
 							}}
 							className={classNames(
 								darkMode ? "bg-indigo-200 px-0.5" : "bg-gray-200 px-1",

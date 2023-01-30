@@ -36,8 +36,8 @@ export default function Notifications() {
 		>
 			{newNotification && (
 				<>
-					<div className="absolute top-1 right-1 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-600" />
-					<div className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-indigo-600" />
+					<div className="absolute top-1 right-1 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-600 dark:bg-indigo-500" />
+					<div className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-indigo-600 dark:bg-indigo-500" />
 				</>
 			)}
 			<TbBell size={25} />
