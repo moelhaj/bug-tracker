@@ -6,6 +6,7 @@ import { TbX } from "react-icons/tb";
 import Select from "../../components/form/Select";
 import useNotification from "../../hooks/useNotification";
 import { useAddWorkItemMutation } from "../../app/features/workItemsApi";
+import { modal } from "../../components/elements/Animation";
 
 type WorkItem = {
 	title: string;
@@ -59,27 +60,6 @@ export default function New(props: any) {
 		await addWorkItem(workItem);
 	};
 
-	const appearAnimation = {
-		enter: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.3,
-			},
-			display: "flex",
-		},
-		exit: {
-			opacity: 0,
-			y: 10,
-			transition: {
-				duration: 0.1,
-			},
-			transitionEnd: {
-				display: "none",
-			},
-		},
-	};
-
 	return (
 		<div className="fixed inset-0 z-10">
 			{props.open && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
@@ -87,7 +67,7 @@ export default function New(props: any) {
 				className="relative inset-0 z-30 flex h-full w-full items-center justify-center p-3"
 				initial="exit"
 				animate={props.open ? "enter" : "exit"}
-				variants={appearAnimation}
+				variants={modal}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NoContentSkeleton, TableSkeleton } from "../../components/elements/Skeletons";
+import { TableNoContent, TableSkeleton } from "../../components/elements/Skeletons";
 import Debounce from "../../utilities/Debounce";
 import Row from "./Row";
 
@@ -43,17 +43,8 @@ export default function Table(props: any) {
 					)}
 					{success && (
 						<tbody>
-							{workItems && workItems.length < 1 && (
-								<tr className="w-full">
-									<td className="w-full" colSpan={6}>
-										<div className="flex w-full items-center justify-center py-20">
-											<NoContentSkeleton message="No items found" />
-										</div>
-									</td>
-								</tr>
-							)}
-							{workItems &&
-								workItems.length > 0 &&
+							{workItems?.length < 1 && <TableNoContent />}
+							{workItems?.length > 0 &&
 								workItems.map((item: any) => {
 									return (
 										<Row

@@ -6,6 +6,7 @@ import UsersSelect from "../../components/form/UsersSelect";
 import DatePicker from "../../components/form/DatePicker";
 import { motion } from "framer-motion";
 import { TbX } from "react-icons/tb";
+import { modal } from "../../components/elements/Animation";
 
 type Project = {
 	title: string;
@@ -59,6 +60,22 @@ export default function New(props: any) {
 	};
 
 	const handleSubmit = async () => {
+		// project title
+		if (project.title === "") {
+			return setError({ target: "title", message: "Required Field" });
+		}
+		// project startDate
+		if (project.startDate === "") {
+			return setError({ target: "startDate", message: "Required Field" });
+		}
+		// project endDate
+		if (project.endDate === "") {
+			return setError({ target: "endDate", message: "Required Field" });
+		}
+		// project details
+		if (project.details === "") {
+			return setError({ target: "details", message: "Required Field" });
+		}
 		if (project.users.length > 0) {
 			await addNewProject(project);
 		} else {
@@ -70,27 +87,6 @@ export default function New(props: any) {
 		setProject({ ...project, users: selectedUsers.map((user: any) => user.id) });
 	}, [selectedUsers]);
 
-	const appearAnimation = {
-		enter: {
-			opacity: 1,
-			y: 0,
-			transition: {
-				duration: 0.3,
-			},
-			display: "flex",
-		},
-		exit: {
-			opacity: 0,
-			y: 10,
-			transition: {
-				duration: 0.1,
-			},
-			transitionEnd: {
-				display: "none",
-			},
-		},
-	};
-
 	return (
 		<div className="fixed inset-0 z-10">
 			{props.open && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
@@ -98,7 +94,7 @@ export default function New(props: any) {
 				className="relative inset-0 z-30 flex h-full w-full items-center justify-center p-3"
 				initial="exit"
 				animate={props.open ? "enter" : "exit"}
-				variants={appearAnimation}
+				variants={modal}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">

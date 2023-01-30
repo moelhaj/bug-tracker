@@ -29,7 +29,7 @@ export default function Row(props: any) {
 						<div onClick={() => setShowMenu(false)} className="fixed inset-0 z-10" />
 					)}
 					{showMenu && (
-						<div className="fixed z-20 flex flex-col rounded-md border border-gray-300 bg-white p-1 dark:border-gray-700 dark:bg-gray-800">
+						<div className="fixed z-20 mt-1 flex flex-col rounded-md border border-gray-300 bg-white p-1 dark:border-gray-700 dark:bg-gray-800">
 							{states.map((state: string) => (
 								<div
 									key={state}
