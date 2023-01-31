@@ -8,7 +8,7 @@ export const NotificationContext = createContext<any | null>(null);
 
 export const NotificationProvider = ({ children }: { children: any }) => {
 	const dispatch = useAppDispatch();
-	const socket = io("https://mo-backend-issue-tracker.onrender.com/");
+	const socket = io(`${process.env.REACT_APP_SOCKET_IO}`);
 	const {
 		data: notifications,
 		isLoading,
