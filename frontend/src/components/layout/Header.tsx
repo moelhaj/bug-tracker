@@ -1,6 +1,5 @@
 import Toggler from "./Toggler";
-import { useLogoutMutation } from "../../app/features/authApi";
-import { useAppSelector, useAppDispatch } from "../../app/store";
+import { useAppSelector } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Notifications from "./Notifications";

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BugIcon, TaskIcon } from "../../components/elements/Icons";
-import Select from "../../components/form/Select";
 import classNames from "../../utilities/ClassNames";
 
 export default function Row(props: any) {
@@ -49,23 +48,6 @@ export default function Row(props: any) {
 						</div>
 					)}
 				</div>
-				{/* <Select
-					items={states}
-					label="State"
-					selected={
-						currentState === "InProgress"
-							? "In Progress"
-							: currentState !== ""
-							? currentState
-							: item.state === "InProgress"
-							? "In Progress"
-							: item.state
-					}
-					setSelected={(state: string) => {
-						setState(state, item);
-						setCurrentState(state);
-					}}
-				/> */}
 			</td>
 		</tr>
 	);

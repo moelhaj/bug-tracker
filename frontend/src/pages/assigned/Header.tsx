@@ -1,6 +1,4 @@
 import { BiFilter } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/store";
 import Menu from "../../components/elements/Menu";
 import classNames from "../../utilities/ClassNames";
 
@@ -69,14 +67,6 @@ export default function Header({
 					</div>
 				</Menu>
 			</div>
-			{/* {user.roles.includes("Admin") && (
-				<Button primary disabled={isFetching} handleClick={() => openModal()}>
-					<div className="flex items-center gap-1">
-						<TbPlus className="md:hidden" size={20} />
-						<span className="hidden md:flex">New Work Item</span>
-					</div>
-				</Button>
-			)} */}
 		</div>
 	);
 }

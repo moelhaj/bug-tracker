@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
 import { useGetProjectsQuery } from "../../app/features/projectsApi";
-import { useGetMetricsQuery } from "../../app/features/dashboardApi";
 import {
 	ErrorSkeleton,
 	LoadingSkeleton,
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
-import { TbBug, TbCheckupList, TbReportAnalytics, TbPlus, TbTemplate } from "react-icons/tb";
+import { TbPlus, TbTemplate } from "react-icons/tb";
 import New from "./New";
 import { useNavigate } from "react-router-dom";
 import RelativeTime from "../../utilities/RelativeTime";
 import TextOverflow from "../../utilities/TextOverflow";
 import { useAppSelector } from "../../app/store";
-import Metric from "./Metric";
 
 export default function Dashboard() {
 	const { user } = useAppSelector((state: any) => state.user);
 	const navigate = useNavigate();
-	const {
-		data: metrics,
-		isLoading: metricsIsLoading,
-		refetch,
-	} = useGetMetricsQuery(undefined, {
-		// pollingInterval: 15000,
-		refetchOnFocus: true,
-		refetchOnMountOrArgChange: true,
-	});
 	const {
 		data: projects,
 		isLoading,
@@ -48,7 +37,7 @@ export default function Dashboard() {
 		);
 	}
 
-	if (metricsIsLoading || isLoading || isFetching) {
+	if (isLoading) {
 		return (
 			<div className="grid place-content-center py-40">
 				<LoadingSkeleton />
@@ -73,8 +62,6 @@ export default function Dashboard() {
 					<div className="dashboard-height large-y-scroll mt-3 overflow-hidden overflow-y-scroll rounded-md pt-1">
 						<div className="grid grid-flow-row auto-rows-max grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
 							{[...projects, { last: true }].map((project: any) => {
-								// console.log(project.last);
-								// return <div>test</div>;
 								if (project.last) {
 									if (user.roles.includes("admin")) {
 										return (

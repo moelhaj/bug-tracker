@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../app/store";
 import { useGetNotificationsQuery } from "../app/features/notificationsApi";
 import { setNewNotification } from "../app/slices/userSlice";
