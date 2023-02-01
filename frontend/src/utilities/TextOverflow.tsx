@@ -1,4 +1,4 @@
-const TextOverflow = (text: any, words: number) => {
+const TextOverflow = (text: string, words: number) => {
 	const array = text.split(" ");
 	return array.slice(0, words).join(" ");
 };

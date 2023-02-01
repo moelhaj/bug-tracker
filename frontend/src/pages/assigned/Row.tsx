@@ -1,9 +1,18 @@
 import { useState } from "react";
 import { BugIcon, TaskIcon } from "../../components/elements/Icons";
 import classNames from "../../utilities/ClassNames";
+import useAssigned from "../../hooks/useAssigned";
 
-export default function Row(props: any) {
-	const { item, setState } = props;
+type Props = {
+	item: {
+		title: string;
+		type: string;
+		state: string;
+	};
+};
+
+export default function Row({ item }: Props) {
+	const { updateItem } = useAssigned();
 	const [showMenu, setShowMenu] = useState(false);
 	const [currentState, setCurrentState] = useState(item.state);
 	const states = ["New", "InProgress", "Done"];
@@ -33,7 +42,7 @@ export default function Row(props: any) {
 								<div
 									key={state}
 									onClick={() => {
-										setState(state, item);
+										updateItem(state, item);
 										setCurrentState(state);
 										setShowMenu(false);
 									}}

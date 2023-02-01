@@ -1,36 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useGetAssignedQuery } from "../../app/features/assignedApi";
-import { useUpdateWorkItemMutation } from "../../app/features/workItemsApi";
+import { useRef, useState } from "react";
+import useAssigned from "../../hooks/useAssigned";
 import Column from "../../components/dnd/Column";
+import Header from "./Header";
+import Table from "./Table";
 import {
 	ErrorSkeleton,
 	LoadingSkeleton,
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
-import Header from "./Header";
-import Table from "./Table";
 
 export default function Assigned() {
-	const { data, isFetching, isLoading, isError } = useGetAssignedQuery(undefined, {
-		// pollingInterval: 15000,
-		refetchOnFocus: true,
-		refetchOnMountOrArgChange: true,
-	});
-
+	const { rows, updateList, isError, isLoading, list } = useAssigned();
 	const dragItem = useRef<any>();
 	const dragNode = useRef<any>();
 	const [dragOver, setDragOver] = useState("");
-	const [list, setList] = useState(data);
-	const [updateWorkItem] = useUpdateWorkItemMutation();
-	const [keyword, setKeyword] = useState("");
-	const [filter, setFilter] = useState("");
-	const [filterMenu, setFilterMenu] = useState(false);
-
-	useEffect(() => {
-		if (!isFetching) {
-			setList(data);
-		}
-	}, [isFetching]);
 
 	const handleDragStart = (e: any, item: any) => {
 		dragItem.current = item;
@@ -47,33 +30,9 @@ export default function Assigned() {
 
 	const handleDragEnter = async (group: string) => {
 		if (dragItem.current.state !== group && group !== "") {
-			setList([
-				...list?.filter((el: any) => el.id !== dragItem.current.id),
-				{ ...dragItem.current, state: group },
-			]);
-			await updateWorkItem({ ...dragItem.current, state: group });
+			updateList(group, dragItem);
 		}
 	};
-
-	const rows = useMemo(() => {
-		let items = list;
-		if (filter || keyword) {
-			items = list?.filter(
-				(item: any) =>
-					(item.title.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.state.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.assignee.name.toLowerCase().includes(keyword.toLowerCase())) &&
-					item.type.includes(filter)
-			);
-		}
-		return items;
-	}, [list, keyword, filter]);
-
-	const filterTypes = ["All", "Task", "Bug"];
-
-	useEffect(() => {
-		setFilterMenu(false);
-	}, [filter]);
 
 	if (isError)
 		return (
@@ -90,34 +49,17 @@ export default function Assigned() {
 				</div>
 			)}
 
-			{!isLoading && list?.length < 1 && (
+			{list?.length < 1 && (
 				<div className="grid place-content-center py-40">
 					<NoContentSkeleton message="All clear nothing assigned to you" />
 				</div>
 			)}
 
-			{!isLoading && list && list?.length > 0 && (
+			{list?.length > 0 && (
 				<>
-					<Header
-						filter={filter}
-						hideMenu={() => setFilterMenu(false)}
-						isFetching={isFetching}
-						keyword={keyword}
-						setKeyword={setKeyword}
-						filterMenu={filterMenu}
-						setFilterMenu={setFilterMenu}
-						filterTypes={filterTypes}
-						setFilter={setFilter}
-						toggleFilterMenu={() => setFilterMenu((prev: any) => !prev)}
-					/>
-
+					<Header />
 					<div className="flex lg:hidden">
-						<Table
-							workItems={rows}
-							setState={async (state: string, item: any) =>
-								await updateWorkItem({ ...item, state })
-							}
-						/>
+						<Table />
 					</div>
 
 					<div className="hidden flex-1 grid-cols-1 gap-3 overflow-hidden dark:divide-gray-700 lg:grid lg:grid-cols-3">

@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { TableNoContent, TableSkeleton } from "../../components/elements/Skeletons";
 import Debounce from "../../utilities/Debounce";
 import Row from "./Row";
+import useWorkItem from "../../hooks/useWorkItem";
 
-export default function Table(props: any) {
-	const { workItems, success, loading, filters, setFilters } = props;
+type Props = {
+	success: boolean;
+	loading: boolean;
+	workItems: any;
+};
+
+export default function Table({ workItems, success, loading }: Props) {
+	const { filters, setFilters } = useWorkItem();
 	const [keyword, setKeyword] = useState("");
 	const [debouncedKeyword, setDebouncedKeyword] = useState("");
 
@@ -46,14 +53,7 @@ export default function Table(props: any) {
 							{workItems?.length < 1 && <TableNoContent />}
 							{workItems?.length > 0 &&
 								workItems.map((item: any) => {
-									return (
-										<Row
-											key={item.id}
-											item={item}
-											editWorkItem={props.editWorkItem}
-											setSelectedItem={props.setSelectedItem}
-										/>
-									);
+									return <Row key={item.id} item={item} />;
 								})}
 						</tbody>
 					)}

@@ -1,12 +1,25 @@
 import { TaskIcon, BugIcon } from "../../components/elements/Icons";
+import useWorkItem from "../../hooks/useWorkItem";
 
-export default function Row(props: any) {
-	const { item, editWorkItem, setSelectedItem } = props;
+type Props = {
+	item: {
+		title: string;
+		type: string;
+		state: string;
+		assignee: {
+			id: string;
+			name: string;
+		};
+	};
+};
+
+export default function Row({ item }: Props) {
+	const { modals, setModals, setSelectedItem } = useWorkItem();
 	return (
 		<tr
 			onClick={() => {
-				editWorkItem();
 				setSelectedItem(item);
+				setModals({ ...modals, edit: true });
 			}}
 			className="relative z-10 cursor-pointer border-b border-b-gray-200 duration-300 last:border-none even:bg-gray-50 hover:bg-gray-100 dark:border-none dark:odd:bg-gray-700  dark:even:bg-gray-800 dark:hover:bg-gray-900"
 		>

@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
+import useWorkItem from "../../hooks/useWorkItem";
 
-export default function Header(props: any) {
-	const { modals, setModals } = props;
+export default function Header() {
+	const { modals, setModals } = useWorkItem();
 	const navigate = useNavigate();
 	const { user } = useAppSelector((state: any) => state.user);
 	return (

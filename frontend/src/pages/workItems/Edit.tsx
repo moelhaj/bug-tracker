@@ -6,6 +6,7 @@ import { TbX } from "react-icons/tb";
 import Select from "../../components/form/Select";
 import { useUpdateWorkItemMutation } from "../../app/features/workItemsApi";
 import { modal } from "../../components/elements/Animation";
+import useWorkItem from "../../hooks/useWorkItem";
 
 type WorkItem = {
 	id: string;
@@ -14,13 +15,13 @@ type WorkItem = {
 	type: string;
 	assigneeId: string;
 	assigneeName: string;
-	projectId: string;
+	projectId: string | undefined;
 };
 
 const types = ["Task", "Bug"];
 
-export default function Edit(props: any) {
-	const { item } = props;
+export default function Edit({ projectId }: { projectId: string | undefined }) {
+	const { selectedItem: item, modals, setModals } = useWorkItem();
 	const { data: users, isLoading: loadingUsers } = useGetUsersQuery(undefined);
 	const [updateWorkItem, { isLoading }] = useUpdateWorkItemMutation();
 	const [error, setError] = useState<any>(null);
@@ -31,7 +32,7 @@ export default function Edit(props: any) {
 		type: item.type,
 		assigneeId: item.assignee.id,
 		assigneeName: item.assignee.name,
-		projectId: props.projectId,
+		projectId: projectId,
 	});
 
 	const handleChange = (e: { target: { id: any; value: any } }) => {
@@ -61,17 +62,17 @@ export default function Edit(props: any) {
 
 	return (
 		<div className="fixed inset-0 z-10">
-			{props.open && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
+			{modals.edit && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
 			<motion.div
 				className="relative inset-0 z-30 flex h-full w-full items-center justify-center p-3"
 				initial="exit"
-				animate={props.open ? "enter" : "exit"}
+				animate={modals.edit ? "enter" : "exit"}
 				variants={modal}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">
 						<h1 className="text-lg font-bold">Update Work Item</h1>
-						<button onClick={props.close}>
+						<button onClick={() => setModals({ ...modals, edit: false })}>
 							<TbX size={20} />
 						</button>
 					</div>
@@ -80,7 +81,7 @@ export default function Edit(props: any) {
 							{/* work item title */}
 							<div className="w-full">
 								<input
-									autoFocus={props.open}
+									autoFocus={modals.edit}
 									type="text"
 									id="title"
 									required

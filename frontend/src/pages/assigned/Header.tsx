@@ -1,40 +1,21 @@
 import { BiFilter } from "react-icons/bi";
 import Menu from "../../components/elements/Menu";
 import classNames from "../../utilities/ClassNames";
+import useAssigned from "../../hooks/useAssigned";
 
-type Props = {
-	filterMenu: boolean;
-	setFilterMenu: any;
-	keyword: string;
-	setKeyword: any;
-	filter: string;
-	isFetching: boolean;
-	filterTypes: string[];
-	hideMenu: any;
-	toggleFilterMenu: any;
-	setFilter: any;
-};
-
-export default function Header({
-	filterMenu,
-	keyword,
-	filter,
-	filterTypes,
-	setKeyword,
-	hideMenu,
-	toggleFilterMenu,
-	setFilter,
-}: Props) {
+export default function Header() {
+	const { filterTypes, setFilter, filter, keyword, setKeyword, filterMenu, setFilterMenu } =
+		useAssigned();
 	return (
 		<div className="flex items-center justify-end">
 			<div className="">
 				<Menu
-					hide={hideMenu}
+					hide={() => setFilterMenu(false)}
 					isOpen={filterMenu}
 					styles="top-10 right-0"
 					button={
 						<div
-							onClick={toggleFilterMenu}
+							onClick={() => setFilterMenu(!filterMenu)}
 							className="block cursor-pointer rounded-md p-1 text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800"
 						>
 							<BiFilter size={25} />

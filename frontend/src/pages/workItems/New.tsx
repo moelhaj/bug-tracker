@@ -7,6 +7,7 @@ import Select from "../../components/form/Select";
 import useNotification from "../../hooks/useNotification";
 import { useAddWorkItemMutation } from "../../app/features/workItemsApi";
 import { modal } from "../../components/elements/Animation";
+import useWorkItem from "../../hooks/useWorkItem";
 
 type WorkItem = {
 	title: string;
@@ -14,13 +15,14 @@ type WorkItem = {
 	type: string;
 	assigneeId: string;
 	assigneeName: string;
-	projectId: string;
+	projectId: string | undefined;
 };
 
 const types = ["Task", "Bug"];
 
-export default function New(props: any) {
+export default function New({ projectId }: { projectId: string | undefined }) {
 	const { notify } = useNotification();
+	const { modals, setModals } = useWorkItem();
 	const { data: users, isLoading: loadingUsers } = useGetUsersQuery(undefined);
 	const [addWorkItem, { isLoading }] = useAddWorkItemMutation();
 	const [error, setError] = useState<any>(null);
@@ -30,7 +32,7 @@ export default function New(props: any) {
 		type: "",
 		assigneeId: "",
 		assigneeName: "",
-		projectId: props.projectId,
+		projectId: projectId,
 	});
 
 	const handleChange = (e: { target: { id: any; value: any } }) => {
@@ -62,17 +64,17 @@ export default function New(props: any) {
 
 	return (
 		<div className="fixed inset-0 z-10">
-			{props.open && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
+			{modals.new && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
 			<motion.div
 				className="relative inset-0 z-30 flex h-full w-full items-center justify-center p-3"
 				initial="exit"
-				animate={props.open ? "enter" : "exit"}
+				animate={modals.new ? "enter" : "exit"}
 				variants={modal}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">
 						<h1 className="text-lg font-bold">New Work Item</h1>
-						<button onClick={props.close}>
+						<button onClick={() => setModals({ ...modals, new: false })}>
 							<TbX size={20} />
 						</button>
 					</div>
@@ -81,7 +83,7 @@ export default function New(props: any) {
 							{/* work item title */}
 							<div className="w-full">
 								<input
-									autoFocus={props.open}
+									autoFocus={modals.new}
 									type="text"
 									id="title"
 									required
