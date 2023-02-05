@@ -1,6 +1,6 @@
 import { NotificationProvider } from "../hooks/useNotification";
 import { AssignedProvider } from "../hooks/useAssigned";
-import { WorkItemProvider } from "../hooks/useWorkItem";
+import { ProjectProvider } from "../hooks/useProject";
 
 const combineComponents = (...components: any[]) => {
 	return components.reduce(
@@ -17,5 +17,5 @@ const combineComponents = (...components: any[]) => {
 	);
 };
 
-const providers = [NotificationProvider, AssignedProvider, WorkItemProvider];
+const providers = [NotificationProvider, AssignedProvider, ProjectProvider];
 export const ContextProvider = combineComponents(...providers);

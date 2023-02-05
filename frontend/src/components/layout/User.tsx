@@ -2,13 +2,13 @@ import Menu from "../elements/Menu";
 import { useAppSelector, useAppDispatch } from "../../app/store";
 import { useEffect, useState } from "react";
 import classNames from "../../utilities/ClassNames";
-import { setDarkMode } from "../../app/slices/themeSlice";
+import { setDarkMode } from "../../app/slices/appSlice";
 import { removeCredentials } from "../../app/slices/userSlice";
 
 export default function User(props: any) {
 	const dispatch = useAppDispatch();
 	const { user } = useAppSelector((state: any) => state.user);
-	const { darkMode } = useAppSelector((state: any) => state.theme);
+	const { darkMode } = useAppSelector((state: any) => state.app);
 	const [showMenu, setShowMenu] = useState(false);
 
 	useEffect(() => {
@@ -22,9 +22,9 @@ export default function User(props: any) {
 			onClick={() => setShowMenu(prev => !prev)}
 			className={classNames(
 				props.mobile
-					? "flex items-center gap-5 rounded-md"
-					: "grid place-content-center rounded-full",
-				"cursor-pointer duration-300 hover:bg-gray-100 dark:hover:bg-gray-700 md:p-2"
+					? "flex items-center gap-5 rounded-md bg-gray-100 py-3 px-2 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+					: "grid place-content-center rounded-full p-2 hover:bg-gray-100",
+				"cursor-pointer duration-300 dark:hover:bg-gray-700"
 			)}
 		>
 			<img
@@ -72,7 +72,7 @@ export default function User(props: any) {
 							<div
 								className={classNames(
 									darkMode
-										? "translate-x-5 bg-indigo-600"
+										? "translate-x-5 bg-indigo-500"
 										: "translate-x-0 bg-gray-400",
 									"h-3.5 w-3.5 rounded-full duration-300"
 								)}

@@ -9,14 +9,14 @@ export default function Link(props: any) {
 				<NavLink
 					to={props.to}
 					className={classNames(
-						props.active ? "text-indigo-600 dark:text-white" : "",
+						props.active ? "text-indigo-500 dark:text-white" : "",
 						"flex cursor-pointer items-center justify-center gap-4 rounded-md p-2 duration-300"
 					)}
 				>
 					<div
 						className={classNames(
 							props.active
-								? "[&>*]:fill-indigo-200 [&>*]:stroke-indigo-600 dark:[&>*]:fill-indigo-600 dark:[&>*]:stroke-indigo-200"
+								? "[&>*]:fill-indigo-200 [&>*]:stroke-indigo-500 dark:[&>*]:fill-indigo-500 dark:[&>*]:stroke-indigo-200"
 								: ""
 						)}
 					>
@@ -31,13 +31,13 @@ export default function Link(props: any) {
 				<NavLink
 					to={props.to}
 					className={classNames(
-						props.active ? "text-indigo-600 dark:text-indigo-300" : "",
-						"flex w-full cursor-pointer items-center gap-3 py-2 duration-300 hover:text-indigo-600 dark:hover:text-indigo-300"
+						props.active ? "text-indigo-500 dark:text-indigo-300" : "",
+						"flex w-full cursor-pointer items-center gap-3 py-2 duration-300 hover:text-indigo-500 dark:hover:text-indigo-300"
 					)}
 				>
 					<div
 						className={classNames(
-							props.active ? "[&>*]:fill-indigo-200 dark:[&>*]:fill-indigo-600" : ""
+							props.active ? "[&>*]:fill-indigo-200 dark:[&>*]:fill-indigo-500" : ""
 						)}
 					>
 						{props.icon}

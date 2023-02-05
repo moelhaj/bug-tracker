@@ -33,7 +33,7 @@ export default function MainLayout() {
 			<div
 				className={classNames(
 					snack ? "top-7" : "-top-16",
-					"font-codex fixed left-1/2 -translate-x-1/2 transform rounded-md bg-indigo-600 p-2 text-base text-white duration-300"
+					"font-codex fixed left-1/2 -translate-x-1/2 transform rounded-md bg-indigo-500 p-2 text-base text-white duration-300"
 				)}
 			>
 				You have a new notification

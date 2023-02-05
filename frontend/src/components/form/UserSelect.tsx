@@ -53,7 +53,7 @@ export default function UserSelect(props: any) {
 						placeholder="Search"
 					/>
 				</div>
-				<div className="y-scroll grid h-32 grid-cols-1 gap-2 overflow-hidden overflow-y-scroll md:grid-cols-2 lg:h-48">
+				<div className="y-scroll grid h-32 grid-cols-1 gap-2 overflow-hidden overflow-y-scroll md:grid-cols-2 lg:h-40">
 					{users?.map((user: any) => (
 						<div
 							onClick={() => {
@@ -63,7 +63,7 @@ export default function UserSelect(props: any) {
 							}}
 							className={classNames(
 								props.user.id === user.id
-									? "bg-indigo-600 text-white"
+									? "bg-indigo-500 text-white"
 									: "bg-gray-100 dark:bg-gray-800",
 								"flex cursor-pointer items-center gap-3 rounded-md py-2 px-3 text-sm"
 							)}

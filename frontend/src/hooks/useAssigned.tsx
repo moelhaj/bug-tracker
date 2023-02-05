@@ -32,7 +32,7 @@ export const AssignedProvider = ({ children }: { children: any }) => {
 			items = list?.filter(
 				(item: any) =>
 					(item.title.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.state.toLowerCase().includes(keyword.toLowerCase()) ||
+						item.status.toLowerCase().includes(keyword.toLowerCase()) ||
 						item.assignee.name.toLowerCase().includes(keyword.toLowerCase())) &&
 					item.type.includes(filter)
 			);
@@ -43,12 +43,13 @@ export const AssignedProvider = ({ children }: { children: any }) => {
 	const updateList = async (group: string, dragItem: any) => {
 		setList([
 			...list?.filter((el: any) => el.id !== dragItem.current.id),
-			{ ...dragItem.current, state: group },
+			{ ...dragItem.current, status: group },
 		]);
-		await updateWorkItem({ ...dragItem.current, state: group });
+		await updateWorkItem({ ...dragItem.current, status: group });
 	};
 
-	const updateItem = async (state: string, item: any) => await updateWorkItem({ ...item, state });
+	const updateItem = async (status: string, item: any) =>
+		await updateWorkItem({ ...item, status });
 
 	return (
 		<AssignedContext.Provider

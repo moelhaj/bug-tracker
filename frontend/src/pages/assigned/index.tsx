@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useAssigned from "../../hooks/useAssigned";
 import Column from "../../components/dnd/Column";
 import Header from "./Header";
@@ -72,18 +72,18 @@ export default function Assigned() {
 							handleDragEnter={handleDragEnter}
 							handleDragStart={handleDragStart}
 							setDragOver={setDragOver}
-							rows={rows.filter((x: any) => x.state === "New")}
+							rows={rows.filter((x: any) => x.status === "New")}
 						/>
-						{/* In Progress */}
+						{/* Pending */}
 						<Column
 							showUser={false}
-							title="In Progress"
-							dragName="InProgress"
+							title="Pending"
+							dragName="Pending"
 							dragOver={dragOver}
 							handleDragEnter={handleDragEnter}
 							handleDragStart={handleDragStart}
 							setDragOver={setDragOver}
-							rows={rows.filter((x: any) => x.state === "InProgress")}
+							rows={rows.filter((x: any) => x.status === "Pending")}
 						/>
 						{/* Done */}
 						<Column
@@ -94,7 +94,7 @@ export default function Assigned() {
 							handleDragEnter={handleDragEnter}
 							handleDragStart={handleDragStart}
 							setDragOver={setDragOver}
-							rows={rows.filter((x: any) => x.state === "Done")}
+							rows={rows.filter((x: any) => x.status === "Done")}
 						/>
 					</div>
 				</>

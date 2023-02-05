@@ -36,8 +36,8 @@ export default function Notifications() {
 		>
 			{newNotification && (
 				<>
-					<div className="absolute top-1 right-1 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-600 dark:bg-indigo-500" />
-					<div className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-indigo-600 dark:bg-indigo-500" />
+					<div className="absolute top-1 right-1 h-1.5 w-1.5 animate-ping rounded-full bg-indigo-500 dark:bg-indigo-500" />
+					<div className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-indigo-500 dark:bg-indigo-500" />
 				</>
 			)}
 			<TbBell size={25} />
@@ -71,7 +71,7 @@ export default function Notifications() {
 							}}
 							className={classNames(
 								newNotification
-									? "cursor-pointer text-indigo-600 hover:bg-gray-100"
+									? "cursor-pointer text-indigo-500 hover:bg-gray-100"
 									: "cursor-default text-gray-700 dark:text-gray-100",
 								"rounded-md p-1 duration-300"
 							)}
@@ -94,8 +94,8 @@ export default function Notifications() {
 									</div>
 								)}
 
-								{notification.type === "PBI" && (
-									<div className="grid place-content-center rounded-md bg-indigo-200 p-2 text-indigo-600">
+								{notification.type === "Story" && (
+									<div className="grid place-content-center rounded-md bg-indigo-200 p-2 text-indigo-500">
 										<TbTemplate size={20} />
 									</div>
 								)}

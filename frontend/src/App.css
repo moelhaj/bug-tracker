@@ -49,15 +49,15 @@ body {
 }
 
 .btn-primary {
-	@apply bg-indigo-600 text-white hover:bg-indigo-700;
+	@apply bg-indigo-500 text-white hover:bg-indigo-700;
 }
 
 .btn-secondary {
-	@apply border-gray-300 bg-white text-gray-500 hover:border-indigo-600 hover:ring-1 hover:ring-indigo-600 dark:border-gray-900 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-800;
+	@apply border-gray-300 bg-white text-gray-500 hover:border-indigo-500 hover:ring-1 hover:ring-indigo-500 dark:border-gray-900 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-800;
 }
 
 .input {
-	@apply select-none rounded-md border border-gray-300 bg-white py-1.5 px-3 text-base leading-tight duration-300 placeholder:text-sm focus:border-indigo-600 focus:ring-indigo-600 dark:border-gray-800 dark:bg-gray-800;
+	@apply select-none rounded-md border border-gray-300 bg-white py-1.5 px-3 text-base leading-tight duration-300 placeholder:text-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-800;
 }
 
 /* table */

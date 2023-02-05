@@ -109,11 +109,11 @@ export const TableSkeleton = (props: any) => {
 	);
 };
 
-export const TableNoContent = () => (
+export const TableNoContent = (props: any) => (
 	<tr className="w-full">
 		<td className="w-full" colSpan={6}>
 			<div className="flex w-full items-center justify-center py-20">
-				<NoContentSkeleton message="No items found" />
+				<NoContentSkeleton message={props.message} />
 			</div>
 		</td>
 	</tr>

@@ -54,7 +54,7 @@ export default function Tooltip(props: any) {
 		>
 			{props.children}
 			<motion.div
-				className={`${props.styles} absolute z-50 flex items-center whitespace-nowrap rounded bg-indigo-600 py-1 px-2 text-xs text-white`}
+				className={`${props.styles} absolute z-50 flex items-center whitespace-nowrap rounded bg-indigo-500 py-1 px-2 text-xs text-white`}
 				initial="exit"
 				animate={show ? "enter" : "exit"}
 				variants={props.placement === "x" ? hSlideAnimation : vSlideAnimation}

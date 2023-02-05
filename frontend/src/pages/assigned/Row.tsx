@@ -7,15 +7,15 @@ type Props = {
 	item: {
 		title: string;
 		type: string;
-		state: string;
+		status: string;
 	};
 };
 
 export default function Row({ item }: Props) {
 	const { updateItem } = useAssigned();
 	const [showMenu, setShowMenu] = useState(false);
-	const [currentState, setCurrentState] = useState(item.state);
-	const states = ["New", "InProgress", "Done"];
+	const [currentState, setCurrentState] = useState(item.status);
+	const states = ["New", "Pending", "Done"];
 	return (
 		<tr className="even:bg-gray-50 hover:bg-gray-100 dark:border-none dark:odd:bg-gray-700  dark:even:bg-gray-800 dark:hover:bg-gray-900">
 			<td>{item.title}</td>
@@ -31,7 +31,7 @@ export default function Row({ item }: Props) {
 						className="cursor-pointer rounded-md border border-gray-300 p-1 dark:border-none"
 						onClick={() => setShowMenu(!showMenu)}
 					>
-						{currentState === "InProgress" ? "In Progress" : currentState}
+						{currentState}
 					</div>
 					{showMenu && (
 						<div onClick={() => setShowMenu(false)} className="fixed inset-0 z-10" />
@@ -47,7 +47,7 @@ export default function Row({ item }: Props) {
 										setShowMenu(false);
 									}}
 									className={classNames(
-										item.state === state ? "text-indigo-600" : "",
+										item.status === state ? "text-indigo-500" : "",
 										"cursor-pointer rounded-md p-1 duration-300 hover:bg-gray-50 dark:hover:bg-gray-900"
 									)}
 								>

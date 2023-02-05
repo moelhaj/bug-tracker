@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGetWorkItemsQuery } from "../../app/features/workItemsApi";
+import { useGetStoriesQuery } from "../../app/features/storiesApi";
 import Pagination from "../../components/elements/Pagination";
 import { ErrorSkeleton } from "../../components/elements/Skeletons";
-import useWorkItem from "../../hooks/useWorkItem";
+import useProject from "../../hooks/useProject";
 import Header from "./Header";
 import Table from "./Table";
-import New from "./New";
-import Edit from "./Edit";
+import New from "../story/New";
 
-export default function WorkItems() {
+export default function Stories() {
 	const { projectId } = useParams();
-	const { filters, modals, setModals, params, setParams } = useWorkItem();
+	const { filters, modals, setModals, params, setParams } = useProject();
 
-	const { data, isLoading, isFetching, isError } = useGetWorkItemsQuery(
+	const { data, isLoading, isFetching, isError } = useGetStoriesQuery(
 		{ ...filters, projectId },
 		{
 			refetchOnFocus: true,
@@ -21,7 +20,10 @@ export default function WorkItems() {
 	);
 
 	useEffect(() => {
-		setModals({ ...modals, new: false, edit: false });
+		setModals({
+			...modals,
+			newStory: false,
+		});
 	}, [isFetching]);
 
 	if (isError) {
@@ -37,16 +39,12 @@ export default function WorkItems() {
 			<div className="p-2 md:p-3">
 				<Header />
 				<Table
-					workItems={data?.workItems}
+					stories={data?.stories}
 					success={!isLoading && !isFetching}
 					loading={isLoading || isFetching}
-					// filters={filters}
-					// setFilters={setFilters}
-					// editWorkItem={() => setModals({ ...modals, edit: true })}
-					// setSelectedItem={setSelectedItem}
 				/>
 				<div className="mt-5">
-					{data?.workItems && data?.workItems.length > 0 && (
+					{data?.stories && data?.stories.length > 0 && (
 						<Pagination
 							page={params.page}
 							setPage={(page: number) => setParams({ ...params, page })}
@@ -57,8 +55,7 @@ export default function WorkItems() {
 					)}
 				</div>
 			</div>
-			{modals.new && <New projectId={projectId} />}
-			{modals.edit && <Edit projectId={projectId} />}
+			{modals.newStory && <New projectId={projectId} />}
 		</>
 	);
 }

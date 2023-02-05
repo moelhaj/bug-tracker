@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import storage from "redux-persist/lib/storage";
 import { api } from "./api";
 import userReducer from "./slices/userSlice";
-import themeReducer from "./slices/themeSlice";
+import appReducer from "./slices/appSlice";
 
 export const store: any = configureStore({
 	reducer: {
@@ -16,12 +16,12 @@ export const store: any = configureStore({
 			},
 			userReducer
 		),
-		theme: persistReducer<RootState>(
+		app: persistReducer<RootState>(
 			{
-				key: "theme",
+				key: "app",
 				storage,
 			},
-			themeReducer
+			appReducer
 		),
 	},
 	middleware: getDefaultMiddleware =>

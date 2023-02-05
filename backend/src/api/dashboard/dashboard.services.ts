@@ -1,8 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const getProjectsCount = async () => {
+export const projectsCount = async () => {
 	return prisma.project.count();
+};
+
+export const storiesCount = async () => {
+	return prisma.story.count();
 };
 
 export const bugCount = async () => {
@@ -14,6 +18,14 @@ export const bugCount = async () => {
 export const taskCount = async () => {
 	return prisma.workItem.count({
 		where: { type: "Task" },
+	});
+};
+
+export const getStories = async (take: number) => {
+	return prisma.story.findMany({
+		take,
+		include: { assignee: true },
+		orderBy: [{ createdAt: "desc" }],
 	});
 };
 

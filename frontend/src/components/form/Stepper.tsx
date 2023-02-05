@@ -13,7 +13,7 @@ export default function Stepper(props: any) {
 							<div
 								className={classNames(
 									props.step > current + 1
-										? "bg-indigo-600"
+										? "bg-indigo-500"
 										: props.step >= current + 1
 										? "bg-indigo-300"
 										: "bg-gray-200 dark:bg-gray-600",
@@ -23,9 +23,9 @@ export default function Stepper(props: any) {
 								<div
 									className={classNames(
 										props.step === current + 1
-											? "bg-indigo-600"
+											? "bg-indigo-500"
 											: props.step > current + 1
-											? "bg-indigo-600"
+											? "bg-indigo-500"
 											: "bg-gray-300 dark:bg-gray-700",
 										"grid h-3 w-3 place-content-center rounded-full text-white"
 									)}
@@ -36,7 +36,7 @@ export default function Stepper(props: any) {
 							<div
 								className={classNames(
 									props.step >= current + 1
-										? "text-indigo-600 dark:text-indigo-300"
+										? "text-indigo-500 dark:text-indigo-300"
 										: "text-gray-400 dark:text-gray-200",
 									"text-xs"
 								)}
@@ -48,7 +48,7 @@ export default function Stepper(props: any) {
 							<div
 								className={classNames(
 									props.step > current + 1
-										? "border-t-indigo-600"
+										? "border-t-indigo-500"
 										: "border-t-gray-200 dark:border-t-gray-600",
 									"mb-5 flex-1 border-t border-dashed"
 								)}

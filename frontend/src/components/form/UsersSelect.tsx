@@ -41,7 +41,7 @@ export default function UserSelect(props: any) {
 				/>
 				<div
 					onClick={() => setKeyword("")}
-					className="absolute right-2 top-1.5 grid cursor-pointer hover:text-indigo-600 dark:text-white"
+					className="absolute right-2 top-1.5 grid cursor-pointer hover:text-indigo-500 dark:text-white"
 				>
 					<TbX size={18} />
 				</div>
@@ -53,7 +53,7 @@ export default function UserSelect(props: any) {
 							onClick={() => selectUser(user)}
 							className={classNames(
 								isSelected(user.id)
-									? "bg-indigo-600 text-white"
+									? "bg-indigo-500 text-white"
 									: "bg-gray-100 dark:bg-gray-800",
 								"flex cursor-pointer items-center gap-3 rounded-md py-2 px-3 text-sm"
 							)}

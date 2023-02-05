@@ -11,7 +11,7 @@ type WorkItem = {
 	id: number;
 	title: string;
 	details: string;
-	state: string;
+	status: string;
 	assignee: any;
 	createdAt: Date;
 };
@@ -24,7 +24,7 @@ type WorkItemsResponse = {
 export const workItemsApi = api.injectEndpoints({
 	endpoints: builder => ({
 		getWorkItems: builder.query<WorkItemsResponse, Filters>({
-			query: (filters: any) => `/work-items?filters=${JSON.stringify(filters)}`,
+			query: (filters: any) => `/items?filters=${JSON.stringify(filters)}`,
 			providesTags: result =>
 				result
 					? [
@@ -37,28 +37,28 @@ export const workItemsApi = api.injectEndpoints({
 					: [{ type: "WorkItems", id: "LIST" }],
 		}),
 		getWorkItem: builder.query<WorkItem, string | undefined>({
-			query: id => `/work-items/${id}`,
+			query: id => `/items/${id}`,
 			providesTags: ["WorkItems"],
 		}),
 		addWorkItem: builder.mutation({
 			query: item => ({
-				url: "/work-items",
+				url: "/items",
 				method: "POST",
 				body: {
 					...item,
 				},
 			}),
-			invalidatesTags: ["WorkItems", "Projects"],
+			invalidatesTags: ["WorkItems", "Stories", "Assigned"],
 		}),
 		updateWorkItem: builder.mutation({
 			query: item => ({
-				url: `/work-items/${item.id}`,
+				url: `/items/${item.id}`,
 				method: "put",
 				body: {
 					...item,
 				},
 			}),
-			invalidatesTags: ["WorkItems", "Projects"],
+			invalidatesTags: ["WorkItems", "Stories", "Assigned"],
 		}),
 	}),
 });

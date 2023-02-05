@@ -18,7 +18,7 @@ export const create = async (project: Project) => {
 export const findById = async (id: string) => {
 	return prisma.project.findUnique({
 		where: { id },
-		include: { users: true },
+		include: { users: true, stories: true },
 	});
 };
 
@@ -27,7 +27,7 @@ export const find = async () => {
 		include: {
 			users: true,
 			_count: {
-				select: { workItems: true },
+				select: { stories: true },
 			},
 		},
 		orderBy: [{ createdAt: "desc" }],

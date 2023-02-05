@@ -4,40 +4,41 @@ import UserSelect from "../../components/form/UserSelect";
 import { motion } from "framer-motion";
 import { TbX } from "react-icons/tb";
 import Select from "../../components/form/Select";
-import { useUpdateWorkItemMutation } from "../../app/features/workItemsApi";
+import useNotification from "../../hooks/useNotification";
+import { useAddWorkItemMutation } from "../../app/features/workItemsApi";
 import { modal } from "../../components/elements/Animation";
-import useWorkItem from "../../hooks/useWorkItem";
+import useWorkItem from "../../hooks/useProject";
 
 type WorkItem = {
-	id: string;
 	title: string;
 	details: string;
 	type: string;
 	assigneeId: string;
 	assigneeName: string;
-	projectId: string | undefined;
+	storyId: string | undefined;
 };
 
 const types = ["Task", "Bug"];
 
-export default function Edit({ projectId }: { projectId: string | undefined }) {
-	const { selectedItem: item, modals, setModals } = useWorkItem();
+export default function New({ storyId }: { storyId: string | undefined }) {
+	const { notify } = useNotification();
+	const { modals, setModals } = useWorkItem();
 	const { data: users, isLoading: loadingUsers } = useGetUsersQuery(undefined);
-	const [updateWorkItem, { isLoading }] = useUpdateWorkItemMutation();
+	const [addWorkItem, { isLoading }] = useAddWorkItemMutation();
 	const [error, setError] = useState<any>(null);
 	const [workItem, setWorkItem] = useState<WorkItem>({
-		id: item.id,
-		title: item.title,
-		details: item.details,
-		type: item.type,
-		assigneeId: item.assignee.id,
-		assigneeName: item.assignee.name,
-		projectId: projectId,
+		title: "",
+		details: "",
+		type: "",
+		assigneeId: "",
+		assigneeName: "",
+		storyId: storyId,
 	});
 
 	const handleChange = (e: { target: { id: any; value: any } }) => {
 		setWorkItem({ ...workItem, [e.target.id]: e.target.value });
 	};
+
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		// workItem title
@@ -57,22 +58,23 @@ export default function Edit({ projectId }: { projectId: string | undefined }) {
 			return setError({ target: "details", message: "Required Field" });
 		}
 		// send notification
-		await updateWorkItem(workItem);
+		await notify(workItem.assigneeId);
+		await addWorkItem(workItem);
 	};
 
 	return (
 		<div className="fixed inset-0 z-10">
-			{modals.edit && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
+			{modals.newWorkItem && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
 			<motion.div
 				className="relative inset-0 z-30 flex h-full w-full items-center justify-center p-3"
 				initial="exit"
-				animate={modals.edit ? "enter" : "exit"}
+				animate={modals.newWorkItem ? "enter" : "exit"}
 				variants={modal}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">
-						<h1 className="text-lg font-bold">Update Work Item</h1>
-						<button onClick={() => setModals({ ...modals, edit: false })}>
+						<h1 className="text-lg font-bold">New Work Item</h1>
+						<button onClick={() => setModals({ ...modals, newWorkItem: false })}>
 							<TbX size={20} />
 						</button>
 					</div>
@@ -81,7 +83,7 @@ export default function Edit({ projectId }: { projectId: string | undefined }) {
 							{/* work item title */}
 							<div className="w-full">
 								<input
-									autoFocus={modals.edit}
+									autoFocus={modals.newWorkItem}
 									type="text"
 									id="title"
 									required
@@ -161,7 +163,7 @@ export default function Edit({ projectId }: { projectId: string | undefined }) {
 									type="submit"
 									className="btn btn-primary px-3 py-1"
 								>
-									Update
+									Add
 								</button>
 							</div>
 						</form>

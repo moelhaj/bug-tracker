@@ -4,50 +4,51 @@ import UserSelect from "../../components/form/UserSelect";
 import { motion } from "framer-motion";
 import { TbX } from "react-icons/tb";
 import Select from "../../components/form/Select";
-import useNotification from "../../hooks/useNotification";
-import { useAddWorkItemMutation } from "../../app/features/workItemsApi";
+import { useUpdateWorkItemMutation } from "../../app/features/workItemsApi";
 import { modal } from "../../components/elements/Animation";
-import useWorkItem from "../../hooks/useWorkItem";
+import useWorkItem from "../../hooks/useProject";
 
 type WorkItem = {
+	id: string;
 	title: string;
 	details: string;
 	type: string;
+	status: string;
 	assigneeId: string;
 	assigneeName: string;
-	projectId: string | undefined;
+	storyId: string | undefined;
 };
 
-const types = ["Task", "Bug"];
+const statuses = ["New", "Pending", "Done"];
 
-export default function New({ projectId }: { projectId: string | undefined }) {
-	const { notify } = useNotification();
-	const { modals, setModals } = useWorkItem();
+export default function Edit({ storyId }: { storyId: string | undefined }) {
+	const { currentWorkItem: item, modals, setModals } = useWorkItem();
 	const { data: users, isLoading: loadingUsers } = useGetUsersQuery(undefined);
-	const [addWorkItem, { isLoading }] = useAddWorkItemMutation();
+	const [updateWorkItem, { isLoading }] = useUpdateWorkItemMutation();
 	const [error, setError] = useState<any>(null);
 	const [workItem, setWorkItem] = useState<WorkItem>({
-		title: "",
-		details: "",
-		type: "",
-		assigneeId: "",
-		assigneeName: "",
-		projectId: projectId,
+		id: item.id,
+		title: item.title,
+		details: item.details,
+		status: item.status,
+		type: item.type,
+		assigneeId: item.assignee.id,
+		assigneeName: item.assignee.name,
+		storyId: storyId,
 	});
 
 	const handleChange = (e: { target: { id: any; value: any } }) => {
 		setWorkItem({ ...workItem, [e.target.id]: e.target.value });
 	};
-
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		// workItem title
 		if (workItem.title === "") {
 			return setError({ target: "title", message: "Required Field" });
 		}
-		// workItem type
-		if (workItem.type === "") {
-			return setError({ target: "type", message: "Required Field" });
+		// workItem status
+		if (workItem.status === "") {
+			return setError({ target: "status", message: "Required Field" });
 		}
 		// workItem assigneeId
 		if (workItem.assigneeId === "") {
@@ -58,23 +59,22 @@ export default function New({ projectId }: { projectId: string | undefined }) {
 			return setError({ target: "details", message: "Required Field" });
 		}
 		// send notification
-		await notify(workItem.assigneeId);
-		await addWorkItem(workItem);
+		await updateWorkItem(workItem);
 	};
 
 	return (
 		<div className="fixed inset-0 z-10">
-			{modals.new && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
+			{modals.editWorkItem && <div className="fixed inset-0 bg-black bg-opacity-70"></div>}
 			<motion.div
 				className="relative inset-0 z-30 flex h-full w-full items-center justify-center p-3"
 				initial="exit"
-				animate={modals.new ? "enter" : "exit"}
+				animate={modals.editWorkItem ? "enter" : "exit"}
 				variants={modal}
 			>
 				<div className="w-11/12 max-w-full rounded-md bg-white dark:bg-gray-900 md:w-10/12 lg:w-8/12 xl:w-6/12">
 					<div className="svg-pattern flex items-center justify-between rounded-t-md py-4 px-3 text-white">
-						<h1 className="text-lg font-bold">New Work Item</h1>
-						<button onClick={() => setModals({ ...modals, new: false })}>
+						<h1 className="text-lg font-bold">Update Work Item</h1>
+						<button onClick={() => setModals({ ...modals, editWorkItem: false })}>
 							<TbX size={20} />
 						</button>
 					</div>
@@ -83,7 +83,7 @@ export default function New({ projectId }: { projectId: string | undefined }) {
 							{/* work item title */}
 							<div className="w-full">
 								<input
-									autoFocus={modals.new}
+									autoFocus={modals.editWorkItem}
 									type="text"
 									id="title"
 									required
@@ -100,15 +100,15 @@ export default function New({ projectId }: { projectId: string | undefined }) {
 							{/* work item type */}
 							<div className="w-full">
 								<Select
-									items={types}
-									label="Type"
-									selected={workItem.type}
-									setSelected={(type: string) =>
-										setWorkItem({ ...workItem, type })
+									items={statuses}
+									label="Status"
+									selected={workItem.status}
+									setSelected={(status: string) =>
+										setWorkItem({ ...workItem, status })
 									}
 								/>
 								<div className="mt-1 h-2 px-2 text-sm text-rose-600">
-									{error?.target === "type" && error?.message}
+									{error?.target === "status" && error?.message}
 								</div>
 							</div>
 
@@ -163,7 +163,7 @@ export default function New({ projectId }: { projectId: string | undefined }) {
 									type="submit"
 									className="btn btn-primary px-3 py-1"
 								>
-									Add
+									Update
 								</button>
 							</div>
 						</form>

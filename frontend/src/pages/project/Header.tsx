@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/store";
-import useWorkItem from "../../hooks/useWorkItem";
+import useWorkItem from "../../hooks/useProject";
 
 export default function Header() {
 	const { modals, setModals } = useWorkItem();
@@ -19,10 +19,10 @@ export default function Header() {
 			<div className="flex-1" />
 			{user.roles.includes("admin") && (
 				<button
-					onClick={() => setModals({ ...modals, new: true })}
+					onClick={() => setModals({ ...modals, newStory: true })}
 					className="btn btn-primary px-2 py-1"
 				>
-					New Work Item
+					New User Story
 				</button>
 			)}
 		</div>

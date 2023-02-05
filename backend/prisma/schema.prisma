@@ -8,32 +8,47 @@ datasource db {
 }
 
 model Project {
-    id        String     @id @default(auto()) @map("_id") @db.ObjectId
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
     title     String
     details   String
     startDate DateTime
     endDate   DateTime
     // Relations
-    workItems WorkItem[]
-    usersIDs  String[]   @db.ObjectId
-    users     User[]     @relation(fields: [usersIDs], references: [id])
+    stories   Story[]
+    usersIDs  String[] @db.ObjectId
+    users     User[]   @relation(fields: [usersIDs], references: [id])
     // Timestamps
-    createdAt DateTime   @default(now())
+    createdAt DateTime @default(now())
+}
+
+model Story {
+    id         String     @id @default(auto()) @map("_id") @db.ObjectId
+    title      String
+    details    String
+    status     Status     @default(value: New)
+    // Relations
+    workItems  WorkItem[]
+    project    Project    @relation(fields: [projectId], references: [id])
+    projectId  String     @db.ObjectId
+    assignee   User       @relation(fields: [assigneeId], references: [id])
+    assigneeId String     @db.ObjectId
+    // Timestamps
+    createdAt  DateTime   @default(now())
 }
 
 model WorkItem {
-    id         String        @id @default(auto()) @map("_id") @db.ObjectId
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
     title      String
     details    String
-    state      WorkItemState @default(value: New)
+    status     Status   @default(value: New)
     type       String
     // Relations
-    project    Project       @relation(fields: [projectId], references: [id])
-    projectId  String        @db.ObjectId
-    assignee   User          @relation(fields: [assigneeId], references: [id])
-    assigneeId String        @db.ObjectId
+    story      Story    @relation(fields: [storyId], references: [id])
+    storyId    String   @db.ObjectId
+    assignee   User     @relation(fields: [assigneeId], references: [id])
+    assigneeId String   @db.ObjectId
     // Timestamps
-    createdAt  DateTime      @default(now())
+    createdAt  DateTime @default(now())
 }
 
 model User {
@@ -44,10 +59,11 @@ model User {
     title         String
     roles         String[]
     // Relations
+    stories       Story[]
     workItems     WorkItem[]
     notifications Notifications[]
-    projectIDs    String[]        @db.ObjectId
-    projects      Project[]       @relation(fields: [projectIDs], references: [id])
+    projectIds    String[]        @db.ObjectId
+    projects      Project[]       @relation(fields: [projectIds], references: [id])
     // Timestamps
     createdAt     DateTime        @default(now())
 }
@@ -65,9 +81,9 @@ model Notifications {
     createdAt DateTime @default(now())
 }
 
-enum WorkItemState {
+enum Status {
     New
-    InProgress
+    Pending
     Done
 }
 

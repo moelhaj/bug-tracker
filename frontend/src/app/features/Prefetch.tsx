@@ -8,14 +8,12 @@ import { Outlet } from "react-router-dom";
 const Prefetch = () => {
 	useEffect(() => {
 		const users = store.dispatch(usersApi.endpoints.getUsers.initiate(undefined));
-		const projects = store.dispatch(projectsApi.endpoints.getProjects.initiate(undefined));
 		const notifications = store.dispatch(
 			notificationsApi.endpoints.getNotifications.initiate(undefined)
 		);
 
 		return () => {
 			users.unsubscribe();
-			projects.unsubscribe();
 			notifications.unsubscribe();
 		};
 	}, []);

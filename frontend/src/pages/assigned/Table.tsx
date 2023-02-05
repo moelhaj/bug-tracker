@@ -12,7 +12,7 @@ export default function Table(props: any) {
 						<tr className="border-b border-b-gray-200 text-left font-bold dark:border-none">
 							<td>Title</td>
 							<td>Type</td>
-							<td>State</td>
+							<td>Status</td>
 						</tr>
 					</thead>
 					<tbody>

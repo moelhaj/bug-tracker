@@ -5,16 +5,13 @@ import {
 	LoadingSkeleton,
 	NoContentSkeleton,
 } from "../../components/elements/Skeletons";
-import { TbPlus, TbTemplate } from "react-icons/tb";
-import New from "./New";
-import { useNavigate } from "react-router-dom";
-import RelativeTime from "../../utilities/RelativeTime";
-import TextOverflow from "../../utilities/TextOverflow";
+import { TbPlus } from "react-icons/tb";
+import NewProject from "./NewProject";
 import { useAppSelector } from "../../app/store";
+import ProjectBlock from "./ProjectBlock";
 
 export default function Dashboard() {
 	const { user } = useAppSelector((state: any) => state.user);
-	const navigate = useNavigate();
 	const {
 		data: projects,
 		isLoading,
@@ -77,48 +74,14 @@ export default function Dashboard() {
 										return null;
 									}
 								} else {
-									return (
-										<div
-											key={project.id}
-											onClick={() => navigate(project.id)}
-											className="flex cursor-pointer flex-col rounded-md border bg-white p-3 shadow-sm duration-300 hover:bg-gray-50 dark:border-none dark:bg-gray-800"
-										>
-											<h1 className="text-lg font-bold">{project.title}</h1>
-											<p className="whitespace-pre-wrap text-gray-600 dark:text-gray-300">
-												{TextOverflow(project.details, 7)}...
-											</p>
-											<div className="flex-1" />
-											<div className="x-scroll my-3 flex items-center gap-3 overflow-hidden overflow-x-scroll">
-												{project.users.map((user: any) => (
-													<img
-														key={user.id}
-														className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-gray-900"
-														crossOrigin="anonymous"
-														src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
-														alt={"user"}
-													/>
-												))}
-											</div>
-											<div className="flex justify-between">
-												<div className="flex items-center gap-2 text-sm">
-													<div className="text-indigo-600 dark:text-indigo-300">
-														<TbTemplate size={15} />
-													</div>
-													<p>{project?._count.workItems}</p>
-												</div>
-												<p className="text-sm">
-													Due {RelativeTime(project.endDate)}
-												</p>
-											</div>
-										</div>
-									);
+									return <ProjectBlock key={project.id} project={project} />;
 								}
 							})}
 						</div>
 					</div>
 				)}
 			</div>
-			{newProject && <New open={newProject} close={() => setNewProject(false)} />}
+			{newProject && <NewProject open={newProject} close={() => setNewProject(false)} />}
 		</>
 	);
 }

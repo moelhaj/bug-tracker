@@ -4,24 +4,24 @@ import Joi from "joi";
 const validate = () => {
 	return async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const workItemSchema = Joi.object({
+			const stroySchema = Joi.object({
 				title: Joi.string().required(),
 				details: Joi.string().required(),
-				status: Joi.string().required(),
+				state: Joi.string().required(),
 				type: Joi.string().required(),
 				assigneeId: Joi.string().required(),
-				storyId: Joi.string().required(),
+				projectId: Joi.string().required(),
 			});
-			const workItem = {
+			const stroy = {
 				title: req.body.title,
 				details: req.body.details,
-				status: req.body.status,
+				state: req.body.state,
 				type: req.body.type,
 				assigneeId: req.body.assigneeId,
-				storyId: req.body.storyId,
+				projectId: req.body.projectId,
 			};
-			await workItemSchema.validate(req.body);
-			req.body = workItem;
+			await stroySchema.validate(req.body);
+			req.body = stroy;
 			next();
 		} catch (error) {
 			console.log(error);

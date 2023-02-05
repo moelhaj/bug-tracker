@@ -86,7 +86,7 @@ export default function Calendar(props: any) {
 					</h1>
 				))}
 			</div>
-			<div className="grid h-full w-full grid-cols-7">
+			<div className="mt-3 grid h-full w-full grid-cols-7">
 				{generateDate(today.month(), today.year()).map(
 					({ date, currentMonth, today }: any, index: number): any => {
 						return (
@@ -100,11 +100,11 @@ export default function Calendar(props: any) {
 											? "bg-gray-100 dark:bg-gray-700"
 											: "bg-white dark:bg-gray-900",
 										today
-											? "bg-indigo-600 text-white hover:bg-indigo-600 dark:bg-indigo-600"
+											? "bg-indigo-500 text-white hover:bg-indigo-500 dark:bg-indigo-500"
 											: currentMonth
 											? "bg-white text-gray-500 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 											: "cursor-default text-gray-300 hover:bg-white dark:bg-gray-900 dark:text-gray-700",
-										"grid h-8 w-8 cursor-pointer place-content-center rounded-full text-sm duration-300"
+										"grid h-6 w-6 cursor-pointer place-content-center rounded-full text-sm duration-300"
 									)}
 									onClick={() => {
 										if (currentMonth) {

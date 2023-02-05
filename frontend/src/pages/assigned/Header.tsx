@@ -28,7 +28,7 @@ export default function Header() {
 							placeholder="Search"
 							value={keyword}
 							onChange={(e: any) => setKeyword(e.target.value)}
-							className="mb-2 select-none rounded-md border border-gray-300 bg-white py-2 px-3 text-base leading-tight duration-300 focus:border-indigo-600 focus:ring-indigo-600 dark:border-gray-700 dark:bg-gray-800"
+							className="mb-2 select-none rounded-md border border-gray-300 bg-white py-2 px-3 text-base leading-tight duration-300 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-800"
 						/>
 						{filterTypes &&
 							filterTypes.map((item: any) => (
