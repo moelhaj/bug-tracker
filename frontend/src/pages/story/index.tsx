@@ -8,7 +8,7 @@ import Table from "./Table";
 import Details from "./Details";
 import classNames from "../../utilities/ClassNames";
 import { useAppSelector } from "../../app/store";
-import Edit from "./Edit";
+import EditStory from "./EditStory";
 import NewWorkItem from "../workItem/NewWorkItem";
 import EditWorkItem from "../workItem/EditWorkItem";
 
@@ -93,7 +93,9 @@ export default function Story() {
 					</div>
 				</div>
 			</div>
-			{modals.editStory && <Edit selectedStory={story} currentProject={currentProject} />}
+			{modals.editStory && (
+				<EditStory selectedStory={story} currentProject={currentProject} />
+			)}
 			{modals.newWorkItem && <NewWorkItem storyId={storyId} />}
 			{modals.editWorkItem && <EditWorkItem storyId={storyId} />}
 		</>

@@ -6,7 +6,7 @@ import { ErrorSkeleton } from "../../components/elements/Skeletons";
 import useProject from "../../hooks/useProject";
 import Header from "./Header";
 import Table from "./Table";
-import New from "../story/New";
+import New from "../story/NewStory";
 
 export default function Stories() {
 	const { projectId } = useParams();

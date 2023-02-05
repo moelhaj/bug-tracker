@@ -17,7 +17,7 @@ type Story = {
 	projectId: string | undefined;
 };
 
-export default function Edit({
+export default function EditStory({
 	currentProject,
 	selectedStory,
 }: {

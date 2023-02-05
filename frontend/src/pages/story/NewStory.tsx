@@ -3,7 +3,6 @@ import { useGetUsersQuery } from "../../app/features/usersApi";
 import UserSelect from "../../components/form/UserSelect";
 import { motion } from "framer-motion";
 import { TbX } from "react-icons/tb";
-import Select from "../../components/form/Select";
 import useNotification from "../../hooks/useNotification";
 import { useAddStoryMutation } from "../../app/features/storiesApi";
 import { modal } from "../../components/elements/Animation";
@@ -17,7 +16,7 @@ type Story = {
 	projectId: string | undefined;
 };
 
-export default function New({ projectId }: { projectId: string | undefined }) {
+export default function NewStory({ projectId }: { projectId: string | undefined }) {
 	const { notify } = useNotification();
 	const { modals, setModals } = useProject();
 	const { data: users, isLoading: loadingUsers } = useGetUsersQuery(undefined);

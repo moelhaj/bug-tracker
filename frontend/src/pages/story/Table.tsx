@@ -81,8 +81,8 @@ export default function Table({ workItems, success, loading }: Props) {
 					</div>
 				</Menu>
 			</div>
-			<div className="x-scroll mt-5 w-full overflow-hidden overflow-x-scroll rounded-md border border-gray-200 bg-white dark:border-none dark:bg-gray-800">
-				<div className="y-scroll w-full border-collapse overflow-hidden overflow-y-scroll text-sm md:max-h-96">
+			<div className="y-scroll mt-5 w-full border-collapse overflow-hidden overflow-y-scroll text-sm md:max-h-96">
+				<div className="x-scroll w-full overflow-hidden overflow-x-scroll rounded-md border border-gray-200 bg-white dark:border-none dark:bg-gray-800">
 					<table className="w-full">
 						<thead className="bg-gray-50 dark:bg-gray-700">
 							<tr className="border-b border-b-gray-200 text-left text-gray-500 dark:border-b-gray-900 dark:text-gray-300">
