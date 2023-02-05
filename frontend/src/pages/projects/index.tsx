@@ -46,7 +46,7 @@ export default function Dashboard() {
 		<>
 			<div className="p-2 md:p-3">
 				{/* Header */}
-				<h1 className="mt-10 pl-1 text-lg font-bold">Projects</h1>
+				<h1 className="mt-5 pl-1 text-lg font-bold">Projects</h1>
 
 				{/* Empty */}
 				{projects && projects?.length < 1 && (

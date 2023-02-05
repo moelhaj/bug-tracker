@@ -14,13 +14,15 @@ type Props = {
 			name: string;
 		};
 	};
+	closeMenu: () => void;
 };
 
-export default function Row({ item }: Props) {
+export default function Row({ item, closeMenu }: Props) {
 	const { setCurrentWorkItem, setModals, modals } = useProject();
 	return (
 		<tr
 			onClick={() => {
+				closeMenu();
 				setModals({ ...modals, editWorkItem: true });
 				setCurrentWorkItem(item);
 			}}

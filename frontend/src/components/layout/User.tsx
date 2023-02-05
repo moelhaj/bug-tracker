@@ -22,7 +22,7 @@ export default function User(props: any) {
 			onClick={() => setShowMenu(prev => !prev)}
 			className={classNames(
 				props.mobile
-					? "flex items-center gap-5 rounded-md bg-gray-100 py-3 px-2 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+					? "flex items-center gap-5 rounded-md bg-gray-100 px-2 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
 					: "grid place-content-center rounded-full p-2 hover:bg-gray-100",
 				"cursor-pointer duration-300 dark:hover:bg-gray-700"
 			)}
