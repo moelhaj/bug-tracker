@@ -45,7 +45,7 @@ export default function Dashboard() {
 				<Metric icon={<TbCheckupList size={20} />} name="Tasks" amount={data?.taskCount} />
 				<Metric icon={<TbBug size={20} />} name="Bugs" amount={data?.bugCount} />
 			</div>
-			<div className="mt-5 flex flex-col gap-5 md:mt-20 md:flex-row">
+			<div className="flex flex-col gap-5 md:mt-20 md:flex-row">
 				<Block
 					type="stories"
 					title="Latest Stories"
