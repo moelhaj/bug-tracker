@@ -32,8 +32,7 @@ export const AssignedProvider = ({ children }: { children: any }) => {
 			items = list?.filter(
 				(item: any) =>
 					(item.title.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.status.toLowerCase().includes(keyword.toLowerCase()) ||
-						item.assignee.name.toLowerCase().includes(keyword.toLowerCase())) &&
+						item.status.toLowerCase().includes(keyword.toLowerCase())) &&
 					item.type.includes(filter)
 			);
 		}
