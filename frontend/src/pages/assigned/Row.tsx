@@ -28,7 +28,7 @@ export default function Row({ item }: Props) {
 			<td>
 				<div className="relative">
 					<div
-						className="cursor-pointer rounded-md border border-gray-300 p-1 dark:border-none"
+						className="cursor-pointer rounded-md border border-gray-300 p-1 dark:border-gray-600"
 						onClick={() => setShowMenu(!showMenu)}
 					>
 						{currentState}
