@@ -2,13 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import storage from "redux-persist/lib/storage";
-import { api } from "./api";
+import { appApi } from "./api";
 import userReducer from "./slices/userSlice";
 import appReducer from "./slices/appSlice";
 
 export const store: any = configureStore({
 	reducer: {
-		[api.reducerPath]: api.reducer,
+		[appApi.reducerPath]: appApi.reducer,
 		user: persistReducer<RootState>(
 			{
 				key: "user",
@@ -26,7 +26,7 @@ export const store: any = configureStore({
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({ serializableCheck: false, immutableCheck: false }).concat(
-			api.middleware
+			appApi.middleware
 		),
 	devTools: true,
 });

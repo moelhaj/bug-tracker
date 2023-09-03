@@ -1,43 +1,27 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 
 import MainLayout from "./components/layout/MainLayout";
-import Login from "./pages/auth/LoginPage";
-import Dashboard from "./pages/dashboard";
-import Projects from "./pages/projects";
-import Project from "./pages/project";
-import Assigned from "./pages/assigned";
-import Story from "./pages/story";
-
-import RequireAuth from "./utilities/RequireAuth";
-import Prefetch from "./app/features/Prefetch";
-
-export const ROLES = {
-	Employee: "user",
-	Admin: "admin",
-};
+import AuthLayout from "components/layout/AuthLayout";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
+import Expenses from "./pages/expenses";
+import RequireAuth from "./utils/requireAuth";
 
 export default function App() {
 	return (
 		<Routes>
-			<Route path="login" element={<Login />} />
-			<Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-				<Route element={<Prefetch />}>
-					<Route element={<MainLayout />}>
-						<Route path="/">
-							<Route index element={<Dashboard />} />
-						</Route>
-						<Route path="/projects">
-							<Route index element={<Projects />} />
-							<Route path=":projectId" element={<Project />} />
-						</Route>
-						<Route path="/stories">
-							<Route path=":storyId" element={<Story />} />
-						</Route>
-						<Route path="/assigned">
-							<Route index element={<Assigned />} />
-						</Route>
-					</Route>
+			<Route element={<AuthLayout />}>
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
+				<Route path="/reset-password" element={<ResetPassword />} />
+				<Route path="/forgot-password" element={<ForgotPassword />} />
+			</Route>
+			<Route element={<RequireAuth />}>
+				<Route element={<MainLayout />}>
+					<Route path="/" element={<Expenses />} />
 				</Route>
 			</Route>
 		</Routes>

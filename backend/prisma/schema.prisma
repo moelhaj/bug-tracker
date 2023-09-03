@@ -7,87 +7,24 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Project {
+model expense {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     title     String
     details   String
-    startDate DateTime
-    endDate   DateTime
-    // Relations
-    stories   Story[]
-    usersIDs  String[] @db.ObjectId
-    users     User[]   @relation(fields: [usersIDs], references: [id])
-    // Timestamps
+    amount    String
+    category  String
+    user      user     @relation(fields: [userId], references: [id])
+    userId    String   @db.ObjectId
     createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
-model Story {
-    id         String     @id @default(auto()) @map("_id") @db.ObjectId
-    title      String
-    details    String
-    status     Status     @default(value: New)
-    // Relations
-    workItems  WorkItem[]
-    project    Project    @relation(fields: [projectId], references: [id])
-    projectId  String     @db.ObjectId
-    assignee   User       @relation(fields: [assigneeId], references: [id])
-    assigneeId String     @db.ObjectId
-    // Timestamps
-    createdAt  DateTime   @default(now())
-}
-
-model WorkItem {
-    id         String   @id @default(auto()) @map("_id") @db.ObjectId
-    title      String
-    details    String
-    status     Status   @default(value: New)
-    type       String
-    // Relations
-    story      Story    @relation(fields: [storyId], references: [id])
-    storyId    String   @db.ObjectId
-    assignee   User     @relation(fields: [assigneeId], references: [id])
-    assigneeId String   @db.ObjectId
-    // Timestamps
-    createdAt  DateTime @default(now())
-}
-
-model User {
-    id            String          @id @default(auto()) @map("_id") @db.ObjectId
-    email         String          @unique
-    password      String
-    name          String
-    title         String
-    roles         String[]
-    // Relations
-    stories       Story[]
-    workItems     WorkItem[]
-    notifications Notifications[]
-    projectIds    String[]        @db.ObjectId
-    projects      Project[]       @relation(fields: [projectIds], references: [id])
-    // Timestamps
-    createdAt     DateTime        @default(now())
-}
-
-model Notifications {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    seen      Boolean? @default(false)
-    type      String
-    date      DateTime @default(now())
-    title     String
-    details   String
-    user      User?    @relation(fields: [userId], references: [id])
-    userId    String?  @db.ObjectId
-    // Timestamps
-    createdAt DateTime @default(now())
-}
-
-enum Status {
-    New
-    Pending
-    Done
-}
-
-enum WorkItemType {
-    Task
-    Bug
+model user {
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    email     String    @unique
+    password  String
+    name      String
+    expenses  expense[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
