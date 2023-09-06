@@ -10,20 +10,28 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import Expenses from "./pages/expenses";
 import RequireAuth from "./utils/requireAuth";
 
+import { removeCredentials } from "./app/slices/userSlice";
+import { useEffect } from "react";
+import { useAppDispatch } from "app/store";
+
 export default function App() {
-	return (
-		<Routes>
-			<Route element={<AuthLayout />}>
-				<Route path="/login" element={<Login />} />
-				<Route path="/register" element={<Register />} />
-				<Route path="/reset-password" element={<ResetPassword />} />
-				<Route path="/forgot-password" element={<ForgotPassword />} />
-			</Route>
-			<Route element={<RequireAuth />}>
-				<Route element={<MainLayout />}>
-					<Route path="/" element={<Expenses />} />
-				</Route>
-			</Route>
-		</Routes>
-	);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(removeCredentials());
+  }, []);
+  return (
+    <Routes>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Route>
+      <Route element={<RequireAuth />}>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Expenses />} />
+        </Route>
+      </Route>
+    </Routes>
+  );
 }
