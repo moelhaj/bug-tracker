@@ -69,12 +69,14 @@ export default function Expenses() {
 		}
 	}, [expenses, filters]);
 
-	if (isLoading)
-		return (
-			<div className="grid h-screen w-screen place-content-center">
-				<CgSpinnerTwo className="animate-spin" size={40} />
-			</div>
-		);
+	  if (isLoading)
+    return (
+      <div className="grid min-h-[600px] w-full place-content-center">
+        <div className="mx-auto grid place-content-center md:max-w-[1200px]">
+          <CgSpinnerTwo className="animate-spin" size={40} />
+        </div>
+      </div>
+    );
 
 	return (
 		<div>
