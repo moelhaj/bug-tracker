@@ -13,17 +13,17 @@ const baseQuery: any = fetchBaseQuery({
 	},
 });
 
-// const baseQueryWithVerify = async (args: any, api: any, extraOptions: any) => {
-// 	let result = await baseQuery(args, api, extraOptions);
-// 	if (result?.error?.originalStatus === 401) {
-// 		api.dispatch(removeCredentials());
-// 	}
+const baseQueryWithVerify = async (args: any, api: any, extraOptions: any) => {
+	let result = await baseQuery(args, api, extraOptions);
+	if (result?.error?.originalStatus === 401) {
+		api.dispatch(removeCredentials());
+	}
 
-// 	return result;
-// };
+	return result;
+};
 
 export const appApi = createApi({
-	baseQuery: baseQuery,
+	baseQuery: baseQueryWithVerify,
 	tagTypes: ["Expenses"],
 	endpoints: (builder: any) => ({}),
 });
