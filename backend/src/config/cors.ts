@@ -1,6 +1,6 @@
 import config from "./config";
 
-const allowedOrigins = [config.frontendUrl];
+const allowedOrigins = [config.frontEndUrl];
 
 const corsOptions = {
 	origin: (origin: any, callback: any) => {

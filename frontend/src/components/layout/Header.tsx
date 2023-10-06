@@ -1,24 +1,41 @@
-import Toggler from "./Toggler";
-import { useAppSelector } from "../../app/store";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { removeCredentials } from "app/slices/userSlice";
+import { useAppDispatch } from "app/store";
+import Avatar from "assets/avatar.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import Notifications from "./Notifications";
 
-export default function Header(props: any) {
+export default function Header() {
 	const navigate = useNavigate();
-	const { user } = useAppSelector((state: any) => state.user);
+	const dispatch = useAppDispatch();
 
-	useEffect(() => {
-		if (!user) navigate("/login");
-	}, [user]);
+	const logout = () => {
+		dispatch(removeCredentials());
+		navigate("/login");
+	};
 
 	return (
-		<header className="flex items-center border-b border-b-gray-100 px-2 py-3 dark:border-b-gray-900 md:px-3">
-			<div className="lg:hidden">
-				<Toggler toggleMenu={() => props.setExpand(!props.expand)} menu={props.expand} />
+		<div className="flex items-center justify-between border-b p-3">
+			<div className="text-lg font-bold">Expenses Calculator</div>
+
+			<div>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<div className="grid h-10 w-10 cursor-pointer place-content-center rounded-full bg-gray-300">
+							<img src={Avatar} width={30} height={30} alt="avatar" />
+						</div>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent className="mr-3 w-44">
+						<DropdownMenuItem className="cursor-pointer" onClick={logout}>
+							Log out
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 			</div>
-			<div className="flex-1"></div>
-			<Notifications />
-		</header>
+		</div>
 	);
 }

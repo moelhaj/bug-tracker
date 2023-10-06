@@ -1,7 +1,6 @@
-import { api } from "../api";
-import { removeCredentials, setCredentials } from "../slices/userSlice";
+import { appApi } from "../api";
 
-export const authApi = api.injectEndpoints({
+export const authApi = appApi.injectEndpoints({
 	endpoints: builder => ({
 		login: builder.mutation({
 			query: (credentials: any) => ({
@@ -10,39 +9,41 @@ export const authApi = api.injectEndpoints({
 				body: { ...credentials },
 			}),
 		}),
-		logout: builder.mutation({
-			query: () => ({
-				url: "/auth/logout",
+		register: builder.mutation({
+			query: (credentials: any) => ({
+				url: "/auth/register",
 				method: "POST",
+				body: { ...credentials },
 			}),
-			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-				try {
-					await queryFulfilled;
-					dispatch(removeCredentials());
-					setTimeout(() => {
-						dispatch(api.util.resetApiState());
-					}, 1000);
-				} catch (err) {
-					console.log(err);
-				}
-			},
 		}),
-		refresh: builder.mutation<any, void>({
-			query: () => ({
-				url: "/auth/refresh",
-				method: "GET",
+		forgetPassword: builder.mutation({
+			query: (credentials: any) => ({
+				url: "/auth/forget-password",
+				method: "POST",
+				body: { ...credentials },
 			}),
-			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-				try {
-					const { data } = await queryFulfilled;
-					const { accessToken, employee } = data;
-					dispatch(setCredentials({ accessToken, employee }));
-				} catch (err) {
-					console.log(err);
-				}
-			},
+		}),
+		resetPassword: builder.mutation({
+			query: (credentials: any) => ({
+				url: "/auth/reset-password",
+				method: "POST",
+				body: { ...credentials },
+			}),
+		}),
+		verifyToken: builder.mutation({
+			query: (credentials: any) => ({
+				url: "/auth/verify-token",
+				method: "POST",
+				body: { ...credentials },
+			}),
 		}),
 	}),
 });
 
-export const { useLoginMutation, useLogoutMutation, useRefreshMutation } = authApi;
+export const {
+	useLoginMutation,
+	useRegisterMutation,
+	useForgetPasswordMutation,
+	useResetPasswordMutation,
+	useVerifyTokenMutation,
+} = authApi;
