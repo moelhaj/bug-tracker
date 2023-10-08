@@ -1,6 +1,7 @@
-import { appApi } from "../api";
+import { api } from "../api";
+import { removeCredentials, setCredentials } from "../slices/userSlice";
 
-export const authApi = appApi.injectEndpoints({
+export const authApi = api.injectEndpoints({
 	endpoints: builder => ({
 		login: builder.mutation({
 			query: (credentials: any) => ({
@@ -9,41 +10,39 @@ export const authApi = appApi.injectEndpoints({
 				body: { ...credentials },
 			}),
 		}),
-		register: builder.mutation({
-			query: (credentials: any) => ({
-				url: "/auth/register",
+		logout: builder.mutation({
+			query: () => ({
+				url: "/auth/logout",
 				method: "POST",
-				body: { ...credentials },
 			}),
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					await queryFulfilled;
+					dispatch(removeCredentials());
+					setTimeout(() => {
+						dispatch(api.util.resetApiState());
+					}, 1000);
+				} catch (err) {
+					console.log(err);
+				}
+			},
 		}),
-		forgetPassword: builder.mutation({
-			query: (credentials: any) => ({
-				url: "/auth/forget-password",
-				method: "POST",
-				body: { ...credentials },
+		refresh: builder.mutation<any, void>({
+			query: () => ({
+				url: "/auth/refresh",
+				method: "GET",
 			}),
-		}),
-		resetPassword: builder.mutation({
-			query: (credentials: any) => ({
-				url: "/auth/reset-password",
-				method: "POST",
-				body: { ...credentials },
-			}),
-		}),
-		verifyToken: builder.mutation({
-			query: (credentials: any) => ({
-				url: "/auth/verify-token",
-				method: "POST",
-				body: { ...credentials },
-			}),
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					const { accessToken, employee } = data;
+					dispatch(setCredentials({ accessToken, employee }));
+				} catch (err) {
+					console.log(err);
+				}
+			},
 		}),
 	}),
 });
 
-export const {
-	useLoginMutation,
-	useRegisterMutation,
-	useForgetPasswordMutation,
-	useResetPasswordMutation,
-	useVerifyTokenMutation,
-} = authApi;
+export const { useLoginMutation, useLogoutMutation, useRefreshMutation } = authApi;

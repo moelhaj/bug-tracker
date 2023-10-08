@@ -1,29 +1,32 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
-	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],
+	darkMode: "class",
+	content: ["./src/**/*.{js,jsx,ts,tsx}"],
 	theme: {
 		extend: {
-			keyframes: {
-				"accordion-down": {
-					from: { height: 0 },
-					to: { height: "var(--radix-accordion-content-height)" },
-				},
-				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: 0 },
-				},
+			fontSize: {
+				xs: "0.65rem",
+				sm: "0.75rem",
+				base: "0.85rem",
+				lg: "1rem",
+				xl: "1.5rem",
 			},
 			animation: {
-				"accordion-down": "accordion-down 0.2s ease-out",
-				"accordion-up": "accordion-up 0.2s ease-out",
+				loading: "loading 3s infinite",
+			},
+			keyframes: {
+				loading: {
+					"0%": { transform: "translateY(250px)", opacity: 0, scale: "0.7" },
+					"40%": { transform: "translateY(0)", opacity: 1, scale: "1" },
+					"60%": { transform: "translateY(0)", scale: "1" },
+					"100%": { transform: "translateY(-250px)", opacity: 0.3, scale: "0.7" },
+				},
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("@tailwindcss/forms")],
 };
