@@ -13,9 +13,14 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
 	if (!token) return res.status(401).send("Unauthorized");
 	try {
 		const decoded = jwt.verify(token, config.accessSecret) as JwtPayload;
+		req.roles = decoded.roles;
 		req.id = decoded.id;
 		next();
 	} catch (error) {
 		return res.status(403).send("Forbidden");
 	}
+};
+
+export const admin = async (req: Request, res: Response, next: NextFunction) => {
+	req.roles.includes("admin") ? next() : res.status(403).send("Forbidden");
 };
