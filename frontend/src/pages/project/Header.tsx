@@ -17,7 +17,7 @@ export default function Header() {
 				</button>
 			</div>
 			<div className="flex-1" />
-			{user.roles.includes("admin") && (
+			{user.role === "admin" && (
 				<button
 					onClick={() => setModals({ ...modals, newStory: true })}
 					className="btn btn-primary px-2 py-1"

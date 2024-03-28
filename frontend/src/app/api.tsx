@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-	baseUrl: process.env.REACT_APP_BACKEND_URL,
-	// baseUrl: "https://mo-backend-issue-tracker.onrender.com/api",
+	baseUrl: process.env.REACT_APP_BACKEND_API_URL,
 	credentials: "include",
 	prepareHeaders: (headers, { getState }: { getState: any }) => {
 		const token = getState().user.token;

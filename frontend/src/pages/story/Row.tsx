@@ -42,7 +42,7 @@ export default function Row({ item, closeMenu }: Props) {
 						key={item?.assignee?.id}
 						className="h-7 w-7 rounded-full bg-gray-200 object-contain dark:bg-gray-900"
 						crossOrigin="anonymous"
-						src={`https://mo-backend-issue-tracker.onrender.com/${item?.assignee?.id}.png`}
+						src={`${process.env.REACT_APP_BACKEND_API}/${item?.assignee?.id}.png`}
 						alt={"user"}
 					/>
 					<p className="hidden sm:flex">{item?.assignee?.name}</p>

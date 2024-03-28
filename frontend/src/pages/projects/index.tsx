@@ -52,6 +52,16 @@ export default function Dashboard() {
 				{projects && projects?.length < 1 && (
 					<div className="grid place-content-center py-40">
 						<NoContentSkeleton message="No Projects" />
+						{user?.role === "admin" && (
+							<div className="mt-5 flex items-center justify-center">
+								<button
+									onClick={() => setNewProject(true)}
+									className="btn-primary rounded-md p-2 text-center"
+								>
+									Add New Project
+								</button>
+							</div>
+						)}
 					</div>
 				)}
 
@@ -60,7 +70,7 @@ export default function Dashboard() {
 						<div className="grid grid-flow-row auto-rows-max grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
 							{[...projects, { last: true }].map((project: any) => {
 								if (project.last) {
-									if (user.roles.includes("admin")) {
+									if (user?.role === "admin") {
 										return (
 											<div
 												onClick={() => setNewProject(true)}

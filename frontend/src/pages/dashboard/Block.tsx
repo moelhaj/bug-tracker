@@ -31,7 +31,7 @@ export default function Block({ data, icon, title, type }: Props) {
 						<div className="mt-3 flex items-center gap-1">
 							<img
 								className="h-5 w-5 rounded-full object-contain"
-								src={`https://mo-backend-issue-tracker.onrender.com/${item.assignee?.id}.png`}
+								src={`${process.env.REACT_APP_BACKEND_API}/${item.assignee?.id}.png`}
 								crossOrigin="anonymous"
 								alt="avatar"
 							/>

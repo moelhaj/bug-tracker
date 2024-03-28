@@ -57,7 +57,7 @@ model User {
     password      String
     name          String
     title         String
-    roles         String[]
+    role          String
     // Relations
     stories       Story[]
     workItems     WorkItem[]

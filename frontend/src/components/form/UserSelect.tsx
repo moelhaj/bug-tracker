@@ -71,7 +71,7 @@ export default function UserSelect(props: any) {
 						>
 							<img
 								className="h-7 w-7 rounded-full object-contain"
-								src={`https://mo-backend-issue-tracker.onrender.com/${user?.id}.png`}
+								src={`${process.env.REACT_APP_BACKEND_API}/${user?.id}.png`}
 								crossOrigin="anonymous"
 								alt="avatar"
 							/>

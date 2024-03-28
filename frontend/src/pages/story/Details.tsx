@@ -5,7 +5,7 @@ export default function Details({ story }: any) {
 			<div className="mt-2 flex items-center gap-2">
 				<img
 					className="h-7 w-7 rounded-full object-contain"
-					src={`https://mo-backend-issue-tracker.onrender.com/${story.assignee?.id}.png`}
+					src={`${process.env.REACT_APP_BACKEND_API}/${story.assignee?.id}.png`}
 					crossOrigin="anonymous"
 					alt="avatar"
 				/>

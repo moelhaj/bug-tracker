@@ -10,12 +10,12 @@ export const login = async (req: Request, res: Response) => {
 	if (!user || !(await argon2.verify(user?.password, password)))
 		return res.status(400).send("Wrong Credentials");
 
-	const token = jwt.sign({ id: user?.id, roles: user?.roles }, config.accessSecret);
+	const token = jwt.sign({ id: user?.id, roles: user?.role }, config.accessSecret);
 	const returnedUser = {
 		email: user.email,
 		id: user.id,
 		name: user.name,
-		roles: user.roles,
+		role: user.role,
 		title: user.title,
 	};
 	return res.status(200).send({ user: returnedUser, token });
@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
 		email: req.body.email,
 		password,
 		name: req.body.name,
-		roles: req.body.roles,
+		role: req.body.role,
 		title: req.body.title,
 	};
 	await services.create(user);

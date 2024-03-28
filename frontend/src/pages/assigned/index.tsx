@@ -15,6 +15,10 @@ export default function Assigned() {
 	const dragNode = useRef<any>();
 	const [dragOver, setDragOver] = useState("");
 
+	useEffect(() => {
+		console.log(rows);
+	}, [rows]);
+
 	const handleDragStart = (e: any, item: any) => {
 		dragItem.current = item;
 		dragNode.current = e.target;
